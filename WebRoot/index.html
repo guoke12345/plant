@@ -1,0 +1,322 @@
+<!doctype>
+<html lang="en">
+ <head>
+ 
+    <meta  http-equiv="Content-Type" content="text/html ; charset=utf-8"/>
+    <title>茶树病虫害远程专家系统</title>
+    <meta name="keywords" content="青岛农业,青岛农业大学,茶树,主要,病害,病虫害,技术,,防治措施" />
+    <meta name="description" content="茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主" />
+  <!--导入css 版的jquery-->
+    <#include "frontcommon/ref.ftl">
+    <style type="text/css">
+    #login_info1 p{padding-left:70px; text-align:left;}
+    </style>
+ </head>
+ <body>
+    <!-- top start -->
+    <#include "frontcommon/header.ftl">
+    <!-- banner end -->
+    <!-- main start -->
+    <div id="main">
+        <div id="main_left">
+            <!-- login start -->
+            <div class="main_login" id="login_info">
+            <#if userSession??>
+                 <div class='main_login' id='login_info1'>
+	                 <h2 class='header_h2' style='padding-left:15px;'>登陆成功 <a href='indexAction!logout.action'style='color:#ccc'>退出</a></h2>
+	                 <p><label>姓&nbsp;名: &nbsp;</label>${userSession.realName}</p>
+	                 <p><label>用户名: &nbsp;</label>${userSession.userName}</p>
+	                 <p><label>权&nbsp;限: &nbsp;</label><#if userSession.type=1>专家<#else>用户</#if></p>
+                 </div>
+                <#else>
+                <h2 class="header_h2" style="padding-left:15px;">用户登录</h2>
+                <p><label>账号:&nbsp;</label><input type="text" name="lusername" id="fusername" placeholder="请输入账号" ></p>
+                <p><label>密码:&nbsp;</label><input type="password" name="password" id="fpassword" placeholder="请输入密码"></p>
+                <p class="forget_pass">
+                <!-- <label>忘记密码？</label> -->
+                </p>
+                <p class="login_btn">
+                    <a href="javascript:;" class="denglu" style="margin-left:13px">登录</a>
+                    <a href="javascript:;" class="zhuce bounceIn dialog" style="margin-left:6px;">注册</a>
+                </p>
+            </#if>
+            </div>
+            <div id="HBox">
+            <form action="" method="post" onsubmit="return false;">
+                <ul class="list">
+                    <li>
+                        <strong>用户名  <font color="#ff0000">*</font></strong>
+                        <div class="fl"><input type="text" name="username" value="" class="ipt username" /></div>
+                    </li>
+                    <li>
+                        <strong>密 码  <font color="#ff0000">*</font></strong>
+                        <div class="fl"><input type="password" name="password" value="" class="ipt password" /></div>
+                    </li>
+                    <li>
+                        <strong>密 码  <font color="#ff0000">*</font></strong>
+                        <div class="fl"><input type="password" name="againpassword" value="" class="ipt againpassword" /></div>
+                    </li>
+                    <li>
+                        <strong>姓 名  <font color="#ff0000">*</font></strong>
+                        <div class="fl"><input type="text" name="nickname" value="" class="ipt nickname" /></div>
+                    </li>
+                    <li>
+                        <strong>Q Q <font color="#ff0000">*</font></strong>
+                        <div class="fl"><input type="text" name="qq" value="" class="ipt qq" /></div>
+                    </li>
+                    <li><input type="submit" value="确认提交" class="submitBtn" /></li>
+                </ul>
+            </form>
+        </div><!-- HBox end --> 
+            <!-- login end -->
+
+            <!-- product end -->
+            <!-- tea_culture start -->
+            <div class="sys_des content_warp">
+                <p><h2 class="header_h2">系统介绍</h2></p>
+                <div class="des_desp des_descontent" title="茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主">
+		                    本系统由青岛农业大学理学与信息学院软件教研室开发，由植保学院病虫害专家给予病虫害方面专业知识的解答，
+		                    让茶农在大互联网时代能够科学种植，并解决生长过程中的各种疑难杂症。利用专家在线可与专家交谈，解决疑惑，
+		                    在病虫害问答中收录了很多问题以及解决方案。您也可以根据茶树的病态进行自主诊断以及查询浏览各种病害虫害。
+		                    我们还提供手机版的系统，让您在手机上就可以解决自己的疑惑。
+                </div>
+            </div>
+            <div class="tea_culture content_warp">
+                <p><h2 class="header_h2">茶文化<!-- <a href="">more</a> --></h2></p>
+                <div class="culture_desp des_descontent" title="茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主">
+                    茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主
+                </div>
+            </div>
+            <div class="outher_info content_warp">
+                <p><h2 class="header_h2">其他</h2></p>
+                <div class="des_desp des_descontent" title="茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主">
+                    茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主
+                </div>
+            </div>
+            <!-- tea_culture  end -->
+        </div>
+        <div id="main_mid" style="border-left:1px solid #65C4AE;"></div>
+        <div id="main_right">
+            <div class="news">
+                <h2 class="header_h2">预警信息<a target="_blank"  href="fnewsAction!news.action">more</a></h2>
+                <div class="news_content">
+                    <#list listNews as news>
+                       <a class="content_items"  href="fnewsAction!news.action?id=${news.id}" class="item_list"><spqn class="item_con">${news.title!}</spqn><span class="items_time">${news.time!}</span></a>
+                    </#list>
+                </div>
+            </div>
+            <div class="experts content_warp">
+                <h2 class="header_h2">联系专家</h2>
+                <!--course_flow start-->
+                 <div class="public_div" style="position:relative">
+                    <div class="expert_left" style="cursor:pointer;position:absolute;top:125px;left:0px"><img src="images/qianxleft1.png" /></div>
+                    <div class="expert_right" style="cursor:pointer;position:absolute;top:125px;right:0px;"><img src="images/qianxr1.png" /></div>
+                    <div class="pos" style="width:580px;overflow:hidden;margin:0 auto;height:330px;position:relative;">
+                    <div class="pos_main" style="position:absolute;top:0px;left:0px;height:330px;width:200%">
+                    <#list listExpert as expert>
+                    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=${expert.qq}&site=qq&menu=yes">
+                    <dl class="course_flow">
+                        <dt class="img_dt1" style="border-radius:100%;background:url('${expert.headImg!'assets/images/course_flow1.png'}') center center;background-size:cover;"></dt>
+                            <dd>${expert.realName!}</dd>
+                            <dd>
+                                <p>${expert.qq!}</p>
+                                <p>${expert.description!}</p>
+                            </dd>
+                        </dl>
+                    </a>
+                    </#list> 
+                    <script type="text/javascript">
+                        var max_index = $(".course_flow").length;
+                        var _index = 0
+                        $(".expert_right").click(function(){
+                            if(_index == max_index-3  ||  _index > max_index-3){
+                                _index = max_index-3;
+                            }else{
+                                _index += 1;
+                            }
+                            $(".pos_main").stop().animate({left:-_index*198},600);
+                        });
+                        $(".expert_left").click(function(){
+                            if(_index == 0){
+                                _index = 0;
+                            }else{
+                                _index -= 1;
+                            }
+                            $(".pos_main").stop().animate({left:-_index*198},600);
+                        });
+                    </script>
+                </div>
+                </div>
+                <div class="clear"></div>
+                </div>
+                <!--end course_flow-->
+                <!-- 分隔线 -->
+                <div class="press_line"></div>
+                <!--分隔线-->
+			</div>
+            <!-- 虫害列表 start -->
+            <div class="changshi r_ontent_warp">
+                <h2 class="header_h2">虫害列表<a target="_blank" href="fpestAction!toFPest.action">more</a></h2>
+                <div class="news_content">
+                 <#list listPest as pest>
+                    <a class="content_items"  href="fpestAction!toFPest.action?id=${pest.id}"  target="_blank" class="item_list"><spqn class="item_con">${pest.name!}</spqn><span class="items_time">${pest.time!}</span></a>
+                 </#list>
+                </div>
+            </div>
+            <!-- 疾病 start -->
+            <div class="jibing r_ontent_warp">
+                <h2 class="header_h2">病害列表<a target="_blank"  href="fdiseasesAction!toFDiseases.action">more</a></h2>
+                <div class="news_content">
+                    <#list listDiseasses as diseases>
+                    <a class="content_items"  href="fdiseasesAction!toFDiseases.action?id=${diseases.id}" target="_blank"  class="item_list"><spqn class="item_con">${diseases.name!}</spqn><span class="items_time">${diseases.time!}</span></a>
+                    </#list>
+                </div>
+            </div>
+            <!-- 茶叶功效 start -->
+            <div class="gongxiao r_ontent_warp">
+                <h2 class="header_h2">问题解答<a target="_blank"  href="farticleAction!toArticle.action">more</a></h2>
+                <div class="news_content">
+                    <#list listQuestion as question>
+                    <a class="content_items" target="_blank" href="farticleAction!toArticle.action?id=${question.id}" class="item_list"><spqn class="item_con">${question.title!}</spqn><span class="items_time">${question.time!}</span></a>
+                    </#list>
+                </div>
+            </div>
+            <!-- 评论框 start -->
+            <!-- <div class="comment-box">
+                <div class="opt">
+                    <p class="nm">
+                    <a href="http://i.baidu.com/" target="_blank">稻乡杜先森</a>
+                    <em>|</em>
+                    <a href="javascript:;" class="logout">退出</a>
+                    </p>
+                </div>
+                <div class="cmtbox">
+                    <p class="avt">
+                    <a href="http://i.baidu.com/" target="_blank">
+                    <img src="http://himg.bdimg.com/sys/portrait/item/93f8e7a8bbe4b9a1e69d9ce58588e6a3aea538"/>
+                    </a>
+                    </p>
+                    <i class="tarea"><textarea onkeyup="checkLen(this,250)" placeholder="随便说点什么吧"></textarea  name="pinglun" maxlength="250"></i>
+                </div>
+                <p class="btns3">
+                    <span class="checknum">还可以输入<em id="arrow_length">250</em>个字</span>
+                    <a href="javascript:;" class="cmtbtn">评论</a>
+                </p>
+            </div>
+            <script type="text/javascript">
+                function checkLen(obj,maxlength)
+                {
+                    var maxChars = maxlength;//最多字符数
+                    if (obj.value.length > maxChars){
+                        obj.value = obj.value.substring(0,maxChars);
+                        alert("您输入的字数超过了限制");
+                    }
+                    var curr = maxChars - obj.value.length;
+                    document.getElementById("arrow_length").innerHTML = curr.toString();
+                }
+
+            </script> -->
+            <!-- 评论框 end -->
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- main end -->
+    <!-- foot start -->
+    <#include "frontcommon/footer.ftl">
+	<script type="text/javascript">
+		$("#main_mid").css("height", function() {
+		    var _rightHeight = $("#main_right").css("height");
+		    return _rightHeight;
+		});
+	</script>
+    <!-- font-end -->
+    <script type="text/javascript" src="assets/js/jquery.hDialog.js"></script>
+    <script type="text/javascript">
+    var $el = $(".dialog");
+    $el.hDialog({width: 360,height:330});
+    $.goTop({
+        bottom:25,
+        left:25,
+        bgurl:"assets/images/toolbar_img.png",
+        weixinishide:"none"
+
+    });
+    $('.submitBtn').click(function() {
+        var $nickname = $('.nickname');
+        var $username = $('.username');
+        var $password = $('.password');
+        var $againpassword = $('.againpassword');
+        var $qq = $('.qq');
+        var nickname = $nickname.val();
+        var username = $username.val();
+        var password = $password .val(); 
+        var againpassword =$againpassword .val(); 
+        var qq = $qq.val();
+        if(nickname == ''){
+            $.tooltip('昵称还没填呢...'); $nickname.focus();
+        }else if(username == ''){
+            $.tooltip('用户名还没填呢...'); $username.focus();
+        }else if(password == ''){
+            $.tooltip('密码还没填呢...'); $password.focus();
+        }else if(againpassword == ''){
+            $.tooltip('请确认密码...'); $againpassword.focus();
+        }else if($.trim(password) != $.trim(againpassword)){
+            $.tooltip('两次密码输入不一致...');$password.empty();$againpassword.empty(); $againpassword.select();
+        }else if(qq == '' || isNaN(qq)){
+            $.tooltip('QQ还没填呢...'); $qq.focus();
+        }else{
+            $.ajax({
+                url:"json/indexAction!register.action",
+                type:"post",
+                data:{
+                    "realName":nickname,
+                    "userName":username,
+                    "password":password,
+                    "qq":qq
+                },
+                success:function(data){
+                    if(data.result=="success"){
+                         $.tooltip("注册成功，请登录",2500, true);
+                        setTimeout(function(){ 
+                            $el.hDialog('close',{box:'#HBox'}); 
+                        },2000); 
+                    }else if(data.result=="exesit"){
+                        alert("该用户已存在");
+                    }else if(data.result=="fail"){
+                        alert("服务器处错啦。。请刷新重试");
+                    }
+                }
+            });
+        }
+    });
+    $(".denglu").click(function(){
+         var username = $("#fusername").val();
+         var password = $("#fpassword").val();
+         if(username == ''){
+             $.tooltip('用户名还没填呢...'); $("#faccount").focus();
+             return;
+         }else if(password == ''){
+             $.tooltip('密码还没填呢...'); $("#fpassword").focus();
+             return;
+         }
+        $.ajax({
+            url:"json/indexAction!CheckLogin.action",
+            type:"post",
+            data:{
+                "userName":username,
+                "password":password
+            },
+            success:function(data){
+            	if(data.result == 1){
+            		$.tooltip("登陆成功",2500,true);
+                    window.location.href = "indexAction!index.action";	
+            	}else if(data.result == 0){
+            		$.tooltip('用户名或密码错误诶。。'); 
+            	}
+                 
+            }
+        });
+    });
+    </script>
+ </body>
+</html>

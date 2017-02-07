@@ -1,0 +1,56 @@
+<!doctype html>
+<#assign page=JspTaglibs["/WEB-INF/dh.tld"] />
+<html>
+<head>
+<meta charset="utf-8">
+<title>文章管理</title>
+<link href="css/sg.css" rel="stylesheet">
+<link href="css/ht_page.css" rel="stylesheet">
+<style type="text/css">
+#newsType{
+  width:200px;
+  height:30px;
+}
+</style>
+<body>
+<div class="container">
+     <#include "/WEB-INF/common/header.ftl"/>
+     <div class="ht_con clearfix">
+        <a href="${basePath}/userAction!toExpert.action" class="add_btn btn" style="margin-left:38px;">查看专家</a>
+        <a href="${basePath}/userAction!toAdd.action" class="add_btn btn" style="margin-left:38px;">添加管理员</a>
+     </div>
+      <table class="news_list">
+          <tr>
+          <th>用戶名</th>
+          <th>真实姓名</th>
+          <th>用户类型</th>
+          <th>操作</th>
+          </tr>
+          <#list pagination.list as user>
+          <!--管理员-->
+          <#if user.type == 0>
+          <tr>
+	          <td>${user.userName!}</td>
+	          <td>${user.realName!}</td>
+	          <td>	管理员</td>
+	          <td><a href="${basePath}/userAction!toEdit.action?id=${user.id}" class="edit_w">编辑</a><a  href="${basePath}/userAction!delete.action?id=${user.id}">删除</a></td>
+          </tr>
+          </#if>
+          <!-- 普通用户 -->
+          <#if user.type == 2>
+          <tr>
+	          <td>${user.userName!}</td>
+	          <td>${user.realName!}</td>
+	           <td>	普通用户</td>
+	          <td><a href="${basePath}/userAction!toEdit.action?id=${user.id}" class="edit_w">编辑</a><a  href="${basePath}/userAction!delete.action?id=${user.id}">删除</a></td>
+          </tr>
+          </#if>
+          </#list>
+          <form id="queryForm" method="post">
+       <@page.page url="${basePath}/userAction!page.action" name="pagination"></@page.page>
+       </form>
+          </table>
+</div>
+<#include "/WEB-INF/common/foot.ftl"/>
+</body>
+</html>

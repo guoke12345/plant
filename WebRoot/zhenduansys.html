@@ -1,0 +1,64 @@
+<!doctype>
+<html lang="en">
+ <head>
+    <meta  http-equiv="Content-Type" content="text/html ; charset=utf-8"/>
+    <title>茶树病虫害远程专家系统</title>
+    <meta name="keywords" content="青岛农业,青岛农业大学,茶树,主要,病害,病虫害,技术,,防治措施" />
+    <meta name="description" content="茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主" />
+  <!--导入css 版的jquery-->
+    <#include "frontcommon/ref.ftl">
+ </head>
+ <body>
+    <!-- top start -->
+    <#include "frontcommon/header.ftl">
+	<!-- banner end -->
+	<!-- main start -->
+	<div id="main" >
+		<div id="main_left" >
+			<div class="zhenduan_title">
+				<div class="abs_title" style="left:85px"><span class="abs_span">功能介绍</span><p class="abs_p">自助诊断功能介绍</p></div>
+			</div>
+			<div class="zhenduan_left_liem" style="background:#DBDBEa;margin-top:50px;">
+				<a href="javascript:;">
+					<h2>
+						自助诊断
+					</h2>
+					<p >
+						您可以根据提示选择茶树病态，系统会根据您的选择推测出您的茶树可能得的病，并给出治疗建议与意见。
+					</p>
+				</a>
+			</div>
+		</div>
+		<div id="main_mid" ></div>
+		<div id="main_right">
+			<div class="zhenduan_title" style="">
+				<div class="abs_title"><span class="abs_span">自助诊断</span><p class="abs_p">SYSTEM&nbsp;&nbsp;INTRODUCTION</p></div>
+			</div>
+			<div class="zhenduan_article" style="width:100%;margin-top:50px;padding-bottom:50px;">
+				<iframe id="iframepage" name="iframepage" src="fdiagnosisAction!diagnosisList.action" width="100%" onLoad="iFrameHeight()"></iframe>		
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- main end -->
+	<!-- foot start -->
+	<#include "frontcommon/footer.ftl">
+	<script type="text/javascript" language="javascript">
+
+    function iFrameHeight() {
+
+        var ifm= document.getElementById("iframepage");
+
+        var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;
+
+            if(ifm != null && subWeb != null) {
+
+            ifm.height = subWeb.body.scrollHeight;
+
+            }
+
+    }
+
+</script> 
+ </body>
+</html>

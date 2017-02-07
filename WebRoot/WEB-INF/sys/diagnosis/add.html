@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>文章管理</title>
+<link href="css/sg.css" rel="stylesheet">
+<link href="css/ht_page.css" rel="stylesheet">
+<script type="text/javascript" src="layer/jquery.min.js"></script>
+<style type="text/css">
+#newsType{
+  width:200px;
+  height:30px;
+}
+</style>
+<!-- 样式文件 -->
+<link rel="stylesheet" href="./umeditor/themes/default/css/umeditor.css">
+<!-- 引用jquery -->
+<script src="./umeditor/third-party/jquery.min.js"></script>
+<script type="text/javascript" src="layer/layer.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="./umeditor/umeditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="./umeditor/umeditor.js"></script>
+<!-- 语言包文件 -->
+<script type="text/javascript" src="./umeditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="js/tz_util.js"></script>
+<script type="text/javascript" src="js/Ds_loading.js"></script>
+</head>
+<body style="background: url() no-repeat center top fixed;">
+<form name="form" action="${basePath}/diagnosisAction!addZhengZhuang.action" method="post">
+
+     	<input name="id" type="hidden" value="${id!}">
+          <div class="add_nr">
+               <div class="row_sty clearfix">
+                   <p>症状：</p>
+                   <textarea  name="name" style="width:300px;height:150px;min-height:150px;height:auto!important;"></textarea>
+               </div>
+				<input  class="add_btn btn add_article" type="button" style="margin-left:100px;margin-top:40px;" value="确定" onclick="tijiao(this);"/>
+          </div>
+</form>
+          <script type="text/javascript">
+			//这段要放在文本编辑器的实例化之后
+			function tijiao(obj){
+			  var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+              var name = $("textarea[name=name]").val();
+              var id = $("input[name=id]").val();
+              if(isEmpty(name)){
+                  load_loading("症状不能为空",obj);
+                  return false;
+              }else if(isEmpty(id)){
+              	load_loading("添加失败",obj);
+              	return false;
+              }
+              else{
+                  
+                  $.ajax({
+                  	url:"diagnosisAction!addZhengZhuang.action",
+                  	data:{"name":name,"id":id},
+                  	type:"post",
+                  	datatype:"json",
+                  	success:function(data){
+                  		if(data.status == 1){
+                  			parent.location.reload();
+                  			parent.layer.close(index);
+                  		}else{
+                  			layer.confirm('添加失败！', {icon: 0}, function(index0){
+                  			layer.close(index0);
+                  			});
+                  		}
+                  	}
+                  });
+              }
+          }
+          function load_loading(title,obj){
+              $(obj).Ds_loading({
+                  title:title,
+                  position : "top",
+                  marginTop : 120,
+                  time:2000
+              });
+          } 
+		</script>
+</div>
+</body>
+</html>

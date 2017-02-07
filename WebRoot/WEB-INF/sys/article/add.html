@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>文章管理</title>
+<link href="css/sg.css" rel="stylesheet">
+<link href="css/ht_page.css" rel="stylesheet">
+<style type="text/css">
+#newsType{
+  width:200px;
+  height:30px;
+}
+</style>
+<!-- 样式文件 -->
+<link rel="stylesheet" href="./umeditor/themes/default/css/umeditor.css">
+<!-- 引用jquery -->
+<script type="text/javascript" src="js/jquery-1.11.1.min.js""></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="./umeditor/umeditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="./umeditor/umeditor.js"></script>
+<!-- 语言包文件 -->
+<script type="text/javascript" src="./umeditor/lang/zh-cn/zh-cn.js"></script>
+</head>
+<body>
+<div class="container">
+<#include "/WEB-INF/common/header.ftl"/>
+<form name="form" action="articleAction!add.action" method="post">
+     <div class="ht_con clearfix">
+          <a href="javascript:void(0);" class="add_btn btn" style="margin-left:38px;" onclick="tijiao(this);">点击增加文章</a>
+          <a href="${basePath}/articleAction!page.action" class="add_btn btn" style="margin-left:38px;">返回文章列表</a>
+          <div class="add_nr">
+               <div class="row_sty clearfix">
+                   <p>文章标题：</p>
+                   <input type="text" id="article_title" class="text_box article_title" name="title" placeholder="请在此输入文章标题">
+               </div>
+                <div class="row_sty clearfix">
+                   <p>作者：</p>
+                   <input type="text" id="article_author" class="text_box article_author" name="author" placeholder="请在此输入作者名字">
+               </div>
+              <div class="row_sty clearfix">
+                   <p>文章分类：</p>
+                    <select name="type" id="newsType">
+                    <#list typeList as class>
+                      <option value ="${class.type!}">${class.mean!''}</option>
+                      </#list>
+                    </select>
+              </div>
+          </div>
+     </div>
+      <div class="uedit" style="width:900px;margin:-30px auto;">
+      <script id="container" name="content" type="text/plain" style="width:900px;height:900px;"></script>
+</form>    
+         <!-- 实例化编辑器代码 -->
+          <script type="text/javascript">
+             $(function(){
+                window.um = UM.getEditor('container', {
+                    /* 传入配置参数,可配参数列表看umeditor.config.js */
+                    toolbar: ['| undo redo | bold underline | forecolor backcolor |',
+                    '| cleardoc paragraph | fontfamily fontsize' ,
+                    '| justifyleft justifycenter justifyright justifyjustify |',
+                    'link unlink image',
+                    '| preview fullscreen',]
+                });
+                $("#container").html("");
+            });
+          </script>
+          <script type="text/javascript">
+			//这段要放在文本编辑器的实例化之后
+			function tijiao(obj){
+				var title = $("#article_title").val();
+	            var authorName = $("#article_author").val();
+	            var type = $("#newsType").val();
+	            var content = UM.getEditor('container').getContent();//$("#conntainer").html();
+	            if(isEmpty(title)){
+	                alert("标题不能为空");
+	                return;
+	            }else if(isEmpty(authorName)){
+	                alert("作者不能为空");
+	                return;
+	            }else if(isEmpty(type)){
+	                alert("类型不能为空");
+	                return;
+	            }else if(isEmpty(content)){
+	                alert("内容不能为空");
+	                return;
+	            }else{
+	            	form.submit();
+	            }
+			}
+			function load_loading(title,obj){
+			    $(obj).Ds_loading({
+			        title:title,
+			        position : "top",
+			        marginTop : 120,
+			        time:2000
+			    });
+			}
+			function isEmpty(val) {
+			    val = $.trim(val);
+			    if (val == null)
+			        return true;
+			    if (val == undefined || val == 'undefined')
+			        return true;
+			    if (val == "")
+			        return true;
+			    if (val.length == 0)
+			        return true;
+			    if (!/[^(^\s*)|(\s*$)]/.test(val))
+			        return true;
+			    return false;
+			}
+		</script>
+      </div>  
+	<div class="btn_set" style="height:50px;margin-bottom:20px;margin-left:10px;">
+	      <a href="javascript:void(0);" class="add_btn btn add_article"  style="margin-top:50px;margin-left:38px;"  onclick="tijiao(this);">点击增加文章</a>
+	      <a href="${basePath}/articleAction!toAdd.action" class="add_btn btn" style="margin-top:50px;margin-left:38px;">返回文章列表</a>
+	</div>
+</div>
+<#include "/WEB-INF/common/foot.ftl"/>
+</body>
+</html>

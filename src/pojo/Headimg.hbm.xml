@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="pojo.Headimg" table="headimg">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity"></generator>
+        </id>
+         <property name="path" type="java.lang.String">
+            <column name="path" length="255" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="description" length="500" />
+        </property>       
+    </class>
+</hibernate-mapping>

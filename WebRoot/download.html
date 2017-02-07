@@ -1,0 +1,170 @@
+<!doctype>
+<#assign page=JspTaglibs["/WEB-INF/dh.tld"] />
+<html lang="en">
+<head>
+<meta
+    http-equiv="Content-Type"
+    content="text/html ; charset=utf-8" />
+<title>茶树病虫害远程专家系统</title>
+<meta
+    name="keywords"
+    content="青岛农业,青岛农业大学,茶树,主要,病害,病虫害,技术,,防治措施" />
+<meta
+    name="description"
+    content="茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主" />
+<!--导入css 版的jquery-->
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="assets/css/common.css">
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="assets/css/animate.css">
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="assets/css/ds_main.css">
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="assets/css/tea.css">
+<script
+    type="text/javascript"
+    src="assets/js/jquery-1.11.1.min.js"></script>
+<script
+    type="text/javascript"
+    src="assets/js/ds_goTop.min.js"></script>
+<script
+    type="text/javascript"
+    src="assets/js/ds_banner.js"></script>
+<script
+    type="text/javascript"
+    src="assets/js/ds_banner.js"></script>
+<script
+    type="text/javascript"
+    src="js/tz_util.js"></script>
+
+</head>
+<body>
+    <!-- top start -->
+    <#include "frontcommon/header.ftl">
+    <!-- banner end -->
+    <!-- main start -->
+    <div id="main">
+        <div id="main_left" style="width:45%">
+            <div class="zhenduan_title">
+                <div
+                    class="abs_title"
+                    style="left:170px">
+                    <span class="abs_span">手机端软件下载</span>
+                    <p class="abs_p">PROBLEM&nbsp;&nbsp;CLASSFICACTION</p>
+                </div>
+            </div>
+            <a href="javascript:;" class="download_warp">
+			<div style="width:400px;height:150px;line-height:150px;background:url('images/iconfont-xiazai.png') no-repeat 270 center ;margin:120px auto;margin-bottom:30px;border:1px solid #ccc;">
+			 <p style="font-size:30px;text-indent:50px;" onclick="app()">点击下载App</p>
+			</div>
+			</a>
+        </div>
+        <div id="main_mid" style="border-left:1px solid #65C4AE;"></div>
+        <div id="main_right" style="width:52%;">
+            <div
+                class="zhenduan_title"
+                style="">
+                <div class="abs_title"style="left:170px">
+                    <span class="abs_span">图像诊断软件下载</span>
+                    <p class="abs_p">DETAILE&nbsp;&nbsp;OF&nbsp;&nbsp;THE&nbsp;&nbsp;PROBLEM</p>
+                </div>
+            </div>
+            <a href="javascript:;"class="download_warp">
+            <div  style="width:400px;height:150px;line-height:150px;background:url('images/iconfont-xiazai.png') no-repeat 270 center ;margin:120px auto;margin-bottom:30px;border:1px solid #ccc;">
+             <p style="font-size:30px;text-indent:50px;" onclick="donload()">点击下载软件</p>
+            </div>
+            </a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    </div>
+    <script type="text/javascript">
+    $("#main_mid").css("height",function(){
+    	var _rightHeight= $("#main_right").css("height");
+    	return _rightHeight;
+    });
+	
+	function donload(){
+	if(confirm("下载软件?")){
+	window.location="${basePath}/Image processing/Image processing.zip";
+	}	
+	}
+
+	function app(){
+	if(confirm("下载app?")){
+	window.location="${basePath}/Image processing/AgriculturalPest_new.apk";
+	}	
+	}  
+    </script>
+    <!-- main end -->
+    <!-- foot start -->
+     <#include "frontcommon/footer.ftl">
+    <!-- font-end -->
+    <script type="text/javascript">
+        var $el = $(".dialog");
+    $el.hDialog({width: 360,height:330});
+    $.goTop({
+        bottom:25,
+        left:25,
+        bgurl:"assets/images/toolbar_img.png",
+        weixinishide:"none"
+
+    });
+        function searchone(obj){
+            $.ajax({
+                url:"json/fpestAction!searchOne.action",
+                type:"post",
+                data:{
+                    "id":$(obj).data("opid")
+                },
+                success:function(data){
+                	$("#pest_article").html(data);
+                	$(window).scrollTop(300);
+                }
+            });
+        }
+        $(".search_btn_a").click(function() {
+            var _search_text = $("#search_text").val();
+            if (isEmpty($("#search_text").val())){
+                alert("条件不能为空");
+            }else{
+                $.ajax({
+                    url:"json/fpestAction!ajaxSearch.action",
+                    type:"post",
+                    data:{
+                        searchText:_search_text
+                    },
+                    success:function(data){
+                        if(data.result == "success"){
+                            $("#search_warp").empty();
+                            $("#search_warp").css({"border":"1px solid #BDDF9F","padding":"0"});
+                            for(var i in data.searchList){
+                                var title = data.searchList[i]["othername"];
+                                var id=data.searchList[i]["id"];
+                                if(!isEmpty(title) && data.searchList[i]["othername"] != "undefined"){
+                                    $("#search_warp").append("<li class='ques_item' style='padding-left:20px;'><a href='javascript:void(0);' data-opid="+id+" onclick='searchone(this)' title="+title+">"+title+"</a></li>");
+                                }
+                            }xm                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+                        }else if(data.result == "empty"){
+                            $("#search_warp").empty();
+                            $("#search_warp").css({"border":"0"});
+                            $("#search_warp").append("<div "+
+                                    "style='height:170px;text-align:center;line-height:170px;font-size:20px;border:1px solid #BDDF9F;'>"+
+                                    "对不起，没有您想要找的结果</div>");
+                        }
+                    }      
+                });
+            }
+        });
+        
+    </script>
+</body>
+</html>

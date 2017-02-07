@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="pojo.Type" table="class">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity"></generator>
+        </id>
+         <property name="type" type="java.lang.Integer">
+            <column name="type" length="11" />
+        </property>
+         <property name="mean" type="java.lang.String">
+            <column name="mean" length="50" />
+        </property>
+        <property name="typename" type="java.lang.String">
+            <column name="typename" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

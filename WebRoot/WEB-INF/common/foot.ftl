@@ -1,0 +1,1 @@
+<div class="bottom">版权信息：©right2015 青岛农业大学版权所有 V1.0.0</div>

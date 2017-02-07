@@ -1,0 +1,95 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>虫害编辑</title>
+<#include "/WEB-INF/common/ref.ftl"/>
+<link href="js/upload/upload.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/upload/tz_upload.js"></script>
+<script type="text/javascript" src="js/tz_util.js"></script>
+<script type="text/javascript" src="js/Ds_loading.js"></script>
+</head>
+<body>
+<div class="container">
+     <#include "/WEB-INF/common/header.ftl"/>
+     <div class="ht_con clearfix">
+          <div class="add_nr">
+               <div class="row_sty clearfix">
+                   <a href="${basePath}/pestAction!page.action" class="add_btn btn" style="margin-left:38px;">返回虫害列表</a>
+               </div>
+          </div>
+          <div class="chonghaiEdit add_nr">
+            <form method="post" action="${basePath}/pestAction!updatePest.action">
+             <div class="row_sty clearfix">
+             		<input type="hidden" name="id" value="${pest.id!''}">
+                   <p>虫害名称(拉丁文)</p>
+                   <input type="text" name="name" class="text_box pest_name" value="${pest.name!''}">
+               </div>
+                <div class="row_sty clearfix">
+                   <p>害虫别名</p>
+                   <input type="text" name="othername" class="text_box" value="${pest.othername!''}">
+               </div>
+                <div class="row_sty clearfix">
+                   <p>寄主植物</p>
+                   <input type="text" name="host" class="text_box" value="${pest.host!''}">
+               </div>
+                <div class="row_sty clearfix">
+                   <p>分布区域</p>
+                 <textarea  class="text_textarea" name="location" value="${pest.location!''}" style="height:60px;">${pest.location!''}</textarea>
+                  
+               </div>
+                <div class="row_sty clearfix">
+                   <p>为害特征</p>
+                   <!-- <input type="textarea" class="text_box" placeholder="请在此输入虫害名称"> -->
+                 <textarea  class="text_textarea" name="chara" value="${pest.chara!''}" style="height:160px;">${pest.chara!''}</textarea>
+               </div>
+                <div class="row_sty clearfix">
+                   <p>形态特征</p>
+                   <!-- <input type="textarea" class="text_box" placeholder="请在此输入虫害名称"> -->
+                 <textarea  class="text_textarea" name="aspect" value="${pest.aspect!''}" style="height:160px;">${pest.aspect!''}</textarea>
+               </div>
+                <div class="row_sty clearfix">
+                   <p>生活习性</p>
+                   <!-- <input type="textarea" class="text_box" placeholder="请在此输入虫害名称"> -->
+                 <textarea  class="text_textarea" name="habit" value="${pest.habit!''}" style="height:160px;">${pest.habit!''}</textarea>
+               </div>
+                <div class="row_sty clearfix">
+                   <p>防治措施</p>
+                   <!-- <input type="textarea" class="text_box" placeholder="请在此输入虫害名称"> -->
+                 <textarea  class="text_textarea" name="measure" value="${pest.measure!''}" style="height:160px;">${pest.measure!''}</textarea>
+               </div>
+                <div class="row_sty clearfix">
+                   <p><a id="diseasesupload">上传图片</a></p>
+                   <input type="hidden" id="imgpath_input" value="${pest.img!}" name="img" class="text_box"/> 
+                 <div class="ds_img_box text_textarea" style="height:400px;width:800px;padding:0;"><img src="${pest.img!}" id="upload_img" style="max-height:700px;max-width:700px;"/></div>
+               </div>
+              <div class="add_nr">
+                <div class="row_sty clearfix">
+                  <input style="float:left;margin-left:398px;" type="submit" value="提交"  name="submit" class="add_btn btn"/>
+                </div>
+              </div>
+              </form>
+          </div>
+     </div>
+</div>
+<script type="text/javascript">
+$(function(){
+    $.tmUpload({
+        btnId:"diseasesupload",//上传组件附加的位置
+        url:"${basePath}/json/uploadAction!uploadeFile.action?type=pest&name="+$(".pest_name").val(),//文件上传上类的服务器路径
+        limitSize:"100 MB",//限制文件上传的大小
+        fileTypes:"*.jpg;*.gif;*.png",//限制文件上传的格式 *.*代表不限制
+        //params:{"username":"kekek","password":"123456"},//给服务器端传递参数 request.getParameter("username")
+        multiple:false,//控制文件多选还是单选
+        callback:function(serverData,file){//上传成功的回调方法
+            var jsonData = eval("("+serverData+")");
+            $("#upload_img").attr("src","${basePath}"+jsonData.result);
+            $("#imgpath_input").val("${basePath}"+jsonData.result);
+        }
+    });
+});
+</script>
+<#include "/WEB-INF/common/foot.ftl"/>
+</body>
+</html>

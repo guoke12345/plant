@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>虫害管理</title>
+<link href="css/sg.css" rel="stylesheet">
+<link href="css/ht_page.css" rel="stylesheet">
+<script type="text/javascript" src="js/jq-1.1.4.min.js"></script>
+<script type="text/javascript" src="layer/layer.js"></script>
+</head>
+<style type="text/css">
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #999;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #999;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #999;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #999;
+}
+</style>
+<body style="background:url('');">
+      <div class="ht_con clearfix" style="padding-bottom:10px;"> 
+      			<input id="id" type="hidden" value="${id!}" />
+                <input value="${othername!}" id="name" name="othername" type="text" class="text_box" style="margin-left:100px;height:30px;line-height:30px;width:200px;border-radius:3px;" placeholder="输入病害名称或别名">
+                <button id="search" class="add_btn btn" style="margin-left:20px;">搜索</button>
+                <button id="add" class="add_btn btn" style="margin-left:180px;cursor:pointer;">添加</button>
+       </div>
+     <table class="news_list">
+      <tr>
+	      <th><input id="checkAll" type="checkbox"></th>
+	      <th>病害名称</th>
+	      <th>病害别名</th>
+      </tr>      
+      <#list diseaselist as list>
+      <tr>
+      <td><input class="subBox" name="checkbox" type="checkbox" value="${list.id!}"></td>
+      <td>${list.name!''}</td>
+      <td>${list.othername!''}</td>
+      </tr>
+      </#list>
+      </table>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$("#search").click(function(){
+		var name = $("#name").val();
+		//页面层
+		var name = encodeURI(encodeURI($("#name").val()));
+		window.location.href = "diagnosisAction!diseaseList.action?id=${id!}&othername="+name;
+	});
+	
+	// 全选
+	 $("#checkAll").click(function() {
+        $(".subBox").attr("checked",this.checked); 
+     });
+     
+     
+     // 添加病害
+     $("#add").click(function(){
+		var str = "";
+		var id = $("#id").val();
+		 $("input[name='checkbox']:checkbox").each(function(){
+                if($(this).attr("checked")){
+                    str += $(this).val()+","
+                }
+            })
+        if(str.length > 0){
+		$.ajax({
+			url:"diagnosisAction!addDiseases.action",
+			data:{"diseasesId":str,"id":id},
+			type:"post",
+			datatype:"json",
+			success:function(data){
+				if(data.status == 1){
+					parent.location.reload();
+				}else{
+					load_loading("操作失败！",object);
+				}
+			}
+		})
+	}else{
+		alert("没有选择病害！");
+	}
+		/* window.location.href = "diagnosisAction!addZhengZhuang.action?id=${id!}&="+othername; */
+	});
+	function load_loading(title,obj){
+              $(obj).Ds_loading({
+                  title:title,
+                  position : "top",
+                  marginTop : 120,
+                  time:1000
+              });
+          }
+});
+</script>
+</body>
+</html>

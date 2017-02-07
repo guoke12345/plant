@@ -1,0 +1,51 @@
+<!doctype html>
+<#assign page=JspTaglibs["/WEB-INF/dh.tld"] />
+<html>
+<head>
+<meta charset="utf-8">
+<title>留言管理</title>
+<link href="css/sg.css" rel="stylesheet">
+<link href="css/ht_page.css" rel="stylesheet">
+<style type="text/css">
+#newsType{
+  width:200px;
+  height:30px;
+}
+</style>
+<body>
+<div class="container">
+     <#include "/WEB-INF/common/header.ftl"/>
+     <div class="ht_con clearfix">
+        <a href="${basePath}/msgAction!toAdd.action" class="add_btn btn" style="margin-left:38px;">添加留言</a>
+     </div> 
+      <table class="news_list">
+          <tr>
+          <th>序号</th>
+          <th>标题</th>
+          <th>用户名</th>
+          <th>时间</th>
+          <th>操作</th>
+          </tr>
+          <#list msgPagination.list as message>
+          <tr>
+          <td>${message_index+1!}</td>
+          <td>
+          <#if message.title?length < 20>
+	          	${message.title!}
+	          	<#else>
+	          	${message.title?substring(0,20)}...
+          </#if>
+          </td>
+          <td>${message.userName!}</td>
+          <td>${message.time!}</td>
+          <td><a href="${basePath}/msgAction!toEdit.action?id=${message.id}" class="edit_w">编辑</a><a  href="${basePath}/msgAction!delete.action?id=${message.id}">删除</a></td>
+          </tr>
+          </#list>
+          <form id="queryForm" method="post">
+       <@page.page url="${basePath}/msgAction!message.action" name="msgPagination"></@page.page>
+       </form>
+       </table>
+</div>
+<#include "/WEB-INF/common/foot.ftl"/>
+</body>
+</html>

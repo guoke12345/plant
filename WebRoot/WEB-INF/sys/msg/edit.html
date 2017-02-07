@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>病害编辑</title>
+<#include "/WEB-INF/common/ref.ftl"/>
+<link href="js/upload/upload.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/upload/tz_upload.js"></script>
+<script type="text/javascript" src="js/tz_util.js"></script>
+<script type="text/javascript" src="js/Ds_loading.js"></script>
+</head>
+<body>
+<div class="container">
+    <#include "/WEB-INF/common/header.ftl"/>
+     <div class="ht_con clearfix">
+          <div class="add_nr">
+               <div class="row_sty clearfix">
+                   <a href="${basePath}/msgAction!message.action" class="add_btn btn" style="margin-left:38px;">返回留言列表</a>
+               </div>
+          </div>
+          <div class="chonghaiEdit add_nr">
+              <form method="post" action="msgAction!edit.action">
+              <div class="row_sty clearfix">
+              <input type="hidden" name="id" value="${msg.id!}">
+                   <p>标题</p>
+                   <input style="width:800px;" type="text" name="title" class="text_box" value="${msg.title!}">
+               </div>
+               <div class="row_sty clearfix">
+                    <p>作者</p>
+                    <input readonly="readonly" name="userName" style="width:800px;" class="text_box"  value="${msg.userName!}"/>
+                </div>
+                <div class="row_sty clearfix">
+                   <p>内容</p>
+                   <textarea  style="width:800px;height:300px;" name="content" class="text_box" >${msg.content!}</textarea>
+               </div>
+               <div class="add_nr">
+                <div class="row_sty clearfix">
+                  <input style="float:right;margin-right:20px;" type="submit" value="提交"  name="submit" class="add_btn btn"/>
+                </div>
+              </div>
+              </form>
+          </div>
+     </div>
+</div>
+<#include "/WEB-INF/common/foot.ftl"/>
+</body>
+</html>

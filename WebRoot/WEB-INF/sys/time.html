@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<!--声明当前页面的编码集charset=gbk中文编码gb2312,charset=utf-8 国际编码-->
+		<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+		<!--当前页面的三要素-->
+		<title>标题</title>
+		<meta name="Keywords" content="关键词,关键词">
+		<meta name="description" content="描述">		
+		<!--css , js-->
+<style type="text/css">
+*{margin:0px;}
+body{background:url("images/bg.jpg");/*背景图片*/}
+#TimeLine{width:570px;/*宽度*/ height:600px;/*高度*/ /*background:#9933FF;背景颜色*/
+		margin:0px auto;/*盒子在水平方向距中*/}
+.List{width:570px;  padding-top:30px;background:url("images/line_bg.jpg") repeat-y 33px 0px;
+		}
+.List .imgCon{width:66px;  float:left;}
+.List .imgCon img {border-radius:33px;}
+.List .txtCon{width:440px;  background:#fff; float:right;
+			filter:Alpha(opacity=80);-moz-opacity: 0.8; opacity: 0.8;/*背景透明*/
+				border-radius:10px; font-size:12px; line-height:25px; padding:20px;
+				position:relative;/*相对定位*/}
+.List .txtCon img{position:absolute;/*绝对定位*/ top:30px; left:-13px}
+</style>
+
+<link type="text/css" rel="stylesheet" href="css/animate.css"></link>
+</head>
+<body>
+<!--div 盒子模型，高度，宽度,放置内容 姓名="张三"-->
+<div id="TimeLine">
+	<!--list begin-->
+	<div class="List animated bounceIn">
+		<div class="imgCon"><img src="images/1.jpg" width="66"/></div>
+		<div class="txtCon"><img src="images/left.png" />
+			【90后的春天已经来临】 在互联网和移动互联网时代大佬们为什么极度看好和投资90后创业者，90后作为与生俱来的互联网新一代人又饱受争议，命运都掌握在我们自己手中，怎么走，怎么度过你的青春，你决定 ！ 但是互联网大佬们都看好新一代人，你敢做 我就敢投 要的就是这种 敢拼，敢干，敢闯 不怕死的魄力，太需要了 有多少人没有 ！！！ 值得我们每一位年轻人思考，我们是不是该做点什么 ？
+		</div>
+	<div style="clear:both;"></div></div>
+	<!--list begin-->
+
+		<!--list begin-->
+	<div class="List animated bounceIn">
+		<div class="imgCon"><img src="images/2.jpg" width="66"/></div>
+		<div class="txtCon"><img src="images/left.png" />
+			【90后的春天已经来临】 在互联网和移动互联网时代大佬们为什么极度看好和投资90后创业者，90后作为与生俱来的互联网新一代人又饱受争议，命运都掌握在我们自己手中，怎么走，怎么度过你的青春，你决定 ！
+		</div>
+	<div style="clear:both;"></div></div>
+	<!--list begin-->
+
+		<!--list begin-->
+	<div class="List animated bounceIn">
+		<div class="imgCon"><img src="images/3.jpg" width="66"/></div>
+		<div class="txtCon"><img src="images/left.png" />
+			【90后的春天已经来临】 在互联网和移动互联网时代大佬们为什么极度看好和投资90后创业者，90后作为与生俱来的互联网新一代人又饱受争议，命运都掌握在我们自己手中，怎么走，怎么度过你的青春，你决定 ！
+		</div>
+	<div style="clear:both;"></div></div>
+	<!--list begin-->
+
+		<!--list begin-->
+	<div class="List animated bounceIn">
+		<div class="imgCon"><img src="images/4.jpg" width="66"/></div>
+		<div class="txtCon"><img src="images/left.png" />
+			【90后的春天已经来临】 在互联网和移动互联网时代大佬们为什么极度看好和投资90后创业者，90后作为与生俱
+		</div>
+	<div style="clear:both;"></div></div>
+	<!--list begin-->
+<div style="clear:both;"></div></div>
+	<!--list begin-->
+
+		<!--list begin-->
+	<div class="List animated bounceIn">
+		<div class="imgCon"><img src="images/4.jpg" width="66"/></div>
+		<div class="txtCon"><img src="images/left.png" />
+			【90后的春天已经来临】 在互联网和移动互联网时代大佬们为什么极度看好和投资90后创业者，90后作为与生俱
+		</div>
+	<div style="clear:both;"></div></div>
+	<!--list begin-->
+</div>	
+
+<!--引用jquery库文件-->
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" >
+	var scrollHeight=0;//滚动条高度
+	var scrollTop=0;//滚动高度
+	var html="";
+	var _height=$(window).height();
+	$(function(){
+		$(window).scroll(function(){
+			scrollHeight=document.body.scrollHeight;//滚动条的高度
+			scrollTop=document.body.scrollTop;//滚动的高度
+			if(_height+scrollTop>=scrollHeight){
+				html=$("#TimeLine").html();
+				$("#TimeLine").append(html);
+			}
+			//alert(scrollHeight);
+
+		});
+		
+	});
+</script>
+</body>
+</html>

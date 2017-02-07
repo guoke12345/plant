@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>banner管理</title>
+	<#include "/WEB-INF/common/ref.ftl"/>
+	<link href="js/upload/upload.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/upload/tz_upload.js"></script>
+	<script type="text/javascript" src="js/tz_util.js"></script>
+	<script type="text/javascript" src="js/Ds_loading.js"></script>
+</head>
+<body>
+<div class="container">
+    <#include "/WEB-INF/common/header.ftl"/>
+     <div class="ht_con clearfix">
+          <a href="javascript:void(0);" class="add_btn btn">增加banner</a>
+          <div class="add_nr">
+               <div class="row_sty clearfix">
+                   <p>banner标题：</p>
+                   <input type="text" value=" " class="text_box banner_title" placeholder="请在此输入标题--">
+               </div>
+               <div class="row_sty clearfix">
+                    <p>&nbsp;</p>
+                    <div class="pic_show">
+                         <div class="up_img btn_up btn" ><a id="teacherupload"></a></div>
+                         <div id="ban" ><img id="upload_img" src="images/banner.png" alt=""/></div>
+                    </div>
+               </div>
+               <div class="row_sty clearfix">
+                   <p>&nbsp;</p>
+                   <a href="javascript:void(0);" class="submit btn" onclick="tijiao(this)">立即提交</a>
+               </div>               
+          </div>
+          <div class="ban_list">
+               <ul id="banner_ui">
+               <#list listheadimg as headimg>
+				 <li>
+	                   <p>
+	                   		<img src="${headimg.path!}" alt=""/>
+	                   		${headimg.description!}
+	                   	</p>
+	                   	<a href="headimgAction!delete.action?id=${headimg.id!}"  class="btn edit">删除</a>
+	               </li>
+                </#list>
+               </ul>
+          </div>
+     </div>
+</div>
+<script type="text/javascript">
+$.tmUpload({
+    btnId:"teacherupload",//上传组件附加的位置
+    url:"${basePath}/json/uploadAction!uploadeFile.action?type=banner",//文件上传上类的服务器路径
+    limitSize:"100 MB",//限制文件上传的大小
+    fileTypes:"*.jpg;*.gif;*.png",//限制文件上传的格式 *.*代表不限制
+    //params:{"username":"kekek","password":"123456"},//给服务器端传递参数 request.getParameter("username")
+    multiple:false,//控制文件多选还是单选
+    callback:function(serverData,file){//上传成功的回调方法
+        var jsonData = eval("("+serverData+")");
+        for(var i in file){
+            console.log(i+"===="+file[i]);
+        }
+        $("#upload_img").attr("src","${basePath}"+jsonData.result);
+    }
+});
+function tijiao(obj){
+    var description = $(".banner_title").val();
+    var _src = $("#upload_img").attr("src");
+     if(isEmpty(description)){
+         load_loading("请输入标题",obj);
+         return;
+     }else if($("#upload_img").attr("src").indexOf("banner.png")!=-1){
+         load_loading("请上传图片",obj);
+         return;
+     }else{
+         $.ajax({
+             url:"json/headimgAction!add.action",
+             type:"post",
+             data:{
+                 "description":description,
+                 "path":_src
+             },
+             success:function(data){
+                 if(data.result == "success"){
+                	 history.go(0);
+                 }else{
+                     load_loading("服务器出错！请刷新界面重试",obj);
+                 } 
+             }
+         });
+     }
+}
+function load_loading(title,obj){
+    $(obj).Ds_loading({
+        title:title,
+        position : "top",
+        marginTop : 120,
+        time:2000
+    });
+} 
+</script>
+<#include "/WEB-INF/common/foot.ftl"/>
+</body>
+</html>

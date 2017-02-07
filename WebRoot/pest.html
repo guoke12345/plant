@@ -1,0 +1,189 @@
+<!doctype>
+<#assign page=JspTaglibs["/WEB-INF/dh.tld"] />
+<html lang="en">
+<head>
+<meta
+    http-equiv="Content-Type"
+    content="text/html ; charset=utf-8" />
+<title>茶树病虫害远程专家系统</title>
+<meta
+    name="keywords"
+    content="青岛农业,青岛农业大学,茶树,主要,病害,病虫害,技术,,防治措施" />
+<meta
+    name="description"
+    content="茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主" />
+<!--导入css 版的jquery-->
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="assets/css/common.css">
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="assets/css/animate.css">
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="assets/css/ds_main.css">
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="assets/css/tea.css">
+<script
+    type="text/javascript"
+    src="assets/js/jquery-1.11.1.min.js"></script>
+<script
+    type="text/javascript"
+    src="assets/js/ds_goTop.min.js"></script>
+<script
+    type="text/javascript"
+    src="assets/js/ds_banner.js"></script>
+<script
+    type="text/javascript"
+    src="assets/js/ds_banner.js"></script>
+<script
+    type="text/javascript"
+    src="js/tz_util.js"></script>
+
+</head>
+<body>
+    <!-- top start -->
+    <#include "frontcommon/header.ftl">
+    <!-- banner end -->
+    <!-- main start -->
+    <div id="main">
+        <div id="main_left">
+            <div class="zhenduan_title">
+                <div
+                    class="abs_title"
+                    style="left:75px">
+                    <span class="abs_span">虫害列表</span>
+                    <p class="abs_p">PROBLEM&nbsp;&nbsp;CLASSFICACTION</p>
+                </div>
+            </div>
+            <div class="ques_list">
+                <ul class="ques_ul" style="text-align:left;">
+                    <#list pagination.list as pest>
+                    <li class="ques_item  artile_${pest.id!}" ><a data-opid="${pest.id!}" onclick="searchone(this)"
+                        href="javascript:;"
+                        title="${pest.name}"> <#if pest.name?length < 15>${pest.name!}<#else>${pest.name?substring(0,15)}...</#if></a></li>
+                     </#list>
+                    <div class="page">
+                    <form id="queryForm" method="post">
+                    <@page.page url="fpestAction!toFPest.action" name="pagination"></@page.page>
+                    </form>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <input type="hidden" class="class_id" value=".artile_${id!}"/>
+        <script type="text/javascript">
+        if($(".class_id").val()==".artile_0"){
+            $(".ques_item:first-child").addClass("selected-child");
+        }else{
+            var class_id = $(".class_id").val();
+            $(class_id).addClass("selected-child").siblings().removeClass("selected-child");
+        }
+        $(".ques_item").click(function(){
+            $(this).addClass("selected-child").siblings().removeClass("selected-child");
+        });
+        </script>
+        <div id="main_mid" style="border-left:1px solid #65C4AE;"></div>
+        <div id="main_right">
+            <div
+                class="zhenduan_title"
+                style="">
+                <div class="abs_title">
+                    <span class="abs_span">搜索</span>
+                    <p class="abs_p">DETAILE&nbsp;&nbsp;OF&nbsp;&nbsp;THE&nbsp;&nbsp;PROBLEM</p>
+                </div>
+            </div>
+            <div
+                id="search"
+                style="width:620px;margin:50px auto;">
+                <input
+                    type="text"
+                    id="search_text"
+                    placeholder="请输入您所查询的关键字" /> <a
+                    href="javascript:void(0);"
+                    class="search_btn_a">搜索</a>
+            </div>
+
+            <div class="serch_res">
+                <div
+                    class="ques_list content_warp" id="search_warp"
+                    style="height:180px;overflow:auto;">
+                    <div
+                        style="height:170px;text-align:center;line-height:170px;font-size:20px;border:1px solid #BDDF9F;">
+                        </div>
+                </div>
+                <div class="ques_list answer" id="pest_article">
+                    <#include "frontcommon/pestTemplate.ftl">
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    </div>
+    <script type="text/javascript">
+    $("#main_mid").css("height",function(){
+    	var _rightHeight= $("#main_right").css("height");
+    	return _rightHeight;
+    });
+    </script>
+    <!-- main end -->
+    <!-- foot start -->
+   <#include "frontcommon/footer.ftl">
+    <!-- font-end -->
+    <script type="text/javascript">
+        function searchone(obj){
+            $.ajax({
+                url:"json/fpestAction!searchOne.action",
+                type:"post",
+                data:{
+                    "id":$(obj).data("opid")
+                },
+                success:function(data){
+                	$("#pest_article").html(data);
+                	$(window).scrollTop(300);
+                }
+            });
+        }
+        $(".search_btn_a").click(function() {
+            var _search_text = $("#search_text").val();
+            if (isEmpty($("#search_text").val())){
+                alert("条件不能为空");
+            }else{
+                $.ajax({
+                    url:"json/fpestAction!ajaxSearch.action",
+                    type:"post",
+                    data:{
+                        searchText:_search_text
+                    },
+                    success:function(data){
+                        if(data.result == "success"){
+                            $("#search_warp").empty();
+                            $("#search_warp").css({"border":"1px solid #BDDF9F","padding":"0"});
+                            for(var i in data.searchList){
+                                var title = data.searchList[i]["name"];
+                                var id=data.searchList[i]["id"];
+                                if(!isEmpty(title) && data.searchList[i]["name"] != "undefined"){
+                                    $("#search_warp").append("<li class='ques_item' style='padding-left:20px;'><a href='javascript:void(0);' data-opid="+id+" onclick='searchone(this)' title="+title+">"+title+"</a></li>");
+                                }
+                            }xm                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+                        }else if(data.result == "empty"){
+                            $("#search_warp").empty();
+                            $("#search_warp").css({"border":"0"});
+                            $("#search_warp").append("<div "+
+                                    "style='height:170px;text-align:center;line-height:170px;font-size:20px;border:1px solid #BDDF9F;'>"+
+                                    "对不起，没有您想要找的结果</div>");
+                        }
+                    }      
+                });
+            }
+        });
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="pojo.Question" table="question">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity"></generator>
+        </id>
+         <property name="title" type="java.lang.String">
+            <column name="title" length="50" />
+        </property>
+        <property name="content" type="java.lang.String">
+            <column name="content" length="50" />
+        </property>
+        <property name="type" type="java.lang.Integer">
+            <column name="type" length="11" />
+        </property>
+        <property name="user_id" type="java.lang.Integer">
+            <column name="user_id" length="11" />
+        </property>
+        <property name="time" type="java.lang.String">
+            <column name="time" length="50" />
+        </property>
+        <property name="xpoint" type="java.lang.String">
+            <column name="x_point" length="50" />
+        </property>
+        <property name="ypoint" type="java.lang.String">
+            <column name="y_point" length="50" />
+        </property>
+        <property name="img" type="java.lang.String">
+            <column name="img" length="50" />
+        </property>
+        <property name="location" type="java.lang.String">
+            <column name="location" length="50" />
+        </property>
+        <property name="zoom" type="java.lang.String">
+            <column name="zoom" length="50" />
+        </property>
+         <property name="answer" type="java.lang.String">
+            <column name="answer" length="500" />
+        </property>
+    </class>
+</hibernate-mapping>

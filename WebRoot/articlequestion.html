@@ -1,0 +1,102 @@
+<!doctype>
+<html lang="en">
+ <head>
+    <meta  http-equiv="Content-Type" content="text/html ; charset=utf-8"/>
+    <title>茶树病虫害远程专家系统</title>
+    <meta name="keywords" content="青岛农业,青岛农业大学,茶树,主要,病害,病虫害,技术,,防治措施" />
+    <meta name="description" content="茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主" />
+  <!--导入css 版的jquery-->
+    <link rel="stylesheet" type="text/css" href="assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/ds_main.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/tea.css">
+    <script type="text/javascript" src="assets/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/ds_goTop.min.js" ></script>
+    <script type="text/javascript" src="assets/js/ds_banner.js"></script>
+ </head>
+ <body>
+ <#include "frontcommon/header.ftl">
+    <!-- banner end -->
+    <!-- main start -->
+	<div id="main" >
+		<div id="main_left" >
+			<div class="zhenduan_title">
+				<div class="abs_title" style="left:75px"><span class="abs_span">问题分类</span><p class="abs_p">PROBLEM&nbsp;&nbsp;CLASSFICACTION</p></div>
+			</div>
+			<div style="width:250px;margin:70px auto;">
+			<a href="#a_diseases" style="padding:5px 15px;background:green;color:#fff;margin-left:27px;">病害部分</a>
+			<a href="#a_pest" style="padding:5px 15px;background:red;color:#fff;margin-left:30px;">虫害部分</a>
+			</div>  
+			<div class="ques_list">
+				<h2 style="margin-top:60px;;text-align: center;font-size:30px;font-weight:bold;">概述部分</h2>
+				<ul class="ques_ul" style="text-align:left;">
+				    <#list gaishuList as gaishu>
+                     <li class="ques_item article_${gaishu.id}"><a href="farticleAction!toArticle.action?id=${gaishu.id}" title="${gaishu.title!}">${gaishu.title!}</a></li>
+                    </#list>
+                </ul>
+			</div>
+			<div class="ques_list">
+				<h2  class="ques_h2"><a name="a_diseases">病害部分</a>  </h2>
+				<ul class="ques_ul" style="text-align:left;">
+				 <#list diseasesList as diseases>
+                    <li class="ques_item article_${diseases.id}" ><a href="farticleAction!toArticle.action?id=${diseases.id}" title="${diseases.title!}">${diseases.title!}</a></li>
+                 </#list>
+				</ul>
+			</div>
+			<div class="ques_list">
+				<h2  class="ques_h2"><a name="a_pest">虫害部分</a></h2>
+				<ul class="ques_ul" style="text-align:left;">
+			    <#list pestList as pest>
+                    <li class="ques_item article_${pest.id}" ><a href="farticleAction!toArticle.action?id=${pest.id}" title="${pest.title!}">${pest.title!}</a></li>
+                </#list>
+				</ul>
+			</div>
+		</div>
+		<input value=".article_${id}" type="hidden" id="article_id" />
+		<script type="text/javascript">
+	    var selected =  $("#article_id").val();
+	    if(selected == "article_0"){
+	    	$(".ques_item:first-child").addClass("selected-child");
+	    }else{ 
+	        $(selected).addClass("selected-child").siblings().removeClass("selected-child");
+	    } 
+        </script>
+		<div id="main_mid" ></div>
+		<div id="main_right">
+			 <div class="zhenduan_title" style="">
+				<div class="abs_title"><span class="abs_span">问题详情</span><p class="abs_p">DETAILE&nbsp;&nbsp;OF&nbsp;&nbsp;THE&nbsp;&nbsp;PROBLEM</p></div>
+			</div>
+			<!--<div id="search" style="width:620px;margin:50px auto;">
+				<input  type="text"  id="search_text"  placeholder="请输入您所查询的关键字"/>
+				<a href="javascript:void(0);" class="search_btn_a">搜索</a>
+			</div> -->
+
+			<div class="serch_res">
+<!-- 			 <div class="ques_list content_warp">
+			        <p><h2 class="header_h2">问题详情<a href="">more</a></h2></p>
+			        <ul class="ques_ul">
+			            <li class="ques_item"><a href="#">茶园中有哪些主要茶树病害</a></li>
+			            <li class="ques_item"><a href="#">为什么用乐果防治某些吸脂型害虫的效果较好？</a></li>
+			            <li class="ques_item"><a href="#">茶毛虫的防治方法有那些</a></li>
+			        </ul>
+			</div>  -->
+             <div class="ques_list answer" style="height:1000px;"> 
+                    <h2 class="ques_h2">${firstQuesArticle.title!}</h2>
+                 
+                   <div class="answer_article">
+                       ${firstQuesArticle.content!}
+                   </div>
+            </div>
+			</div>
+
+			
+			<div class="clear"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- main end -->
+	<!-- foot start -->
+     <#include "frontcommon/footer.ftl">
+ </body>
+</html>

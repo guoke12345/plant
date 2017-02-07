@@ -1,0 +1,135 @@
+<!doctype>
+<#assign page=JspTaglibs["/WEB-INF/dh.tld"] />
+<html lang="en">
+ <head>
+    <meta  http-equiv="Content-Type" content="text/html ; charset=utf-8"/>
+    <title>茶树病虫害远程专家系统</title>
+    <meta name="keywords" content="青岛农业,青岛农业大学,茶树,主要,病害,病虫害,技术,,防治措施" />
+    <meta name="description" content="茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主" />
+  <!--导入css 版的jquery-->
+  <#include "frontcommon/ref.ftl">
+  <link rel="stylesheet" type="text/css" href="assets/css/teacher.css">
+  <script type="text/javascript" src="js/tz_util.js"></script>
+ </head>
+ <body>
+    <!-- top start -->
+    <#include "frontcommon/header.ftl">
+    <!-- banner end -->
+	<!-- main start -->
+	<div id="main">
+		<div class="zhenduan_title"style="width:310px">
+				<div class="abs_title" style="left:85px;"><span class="abs_span">留言列表</span><p class="abs_p">MESSAGE BOARD</p></div>
+			</div>
+		 <div class="sort"><a href="#liuyan" class="liuyan_btn">我要留言</a>
+		 <span style="margin-left:30px;">留言（${totle!}）</span>
+		 <span>共（${pagnumber!}页）</span>
+	 	 </div>
+		<div id="message">
+		<div class="mes_list">
+		<#list pagination.list as message>
+		 <div class="disc_list">
+                         <a href="javascript:;">
+                          <div class="pic"><img height="88px" width="88px" style="border-radius:100%;" src="assets/images/icon.jpg" alt="病虫害专家" /></div>
+                        </a>
+                          <div class="liuyan1">
+                               <dl>
+                                   <dt>${(message.title!'')?html}</dt>
+                                   <dd>${(message.content!'')?html}</dd>                                   
+                               </dl>
+                               <div class="pubdata">
+                                    <span>发表于：${message.time!}|</span>
+                                    <a href="javacript:;" class="fl">作者：${message.userName!''}</a>
+                                    <a href="javascript:;" class="fr"></a>
+                                    <a href="javascript:;" class="fr"></a>
+                               </div>
+                          </div>
+                          <div class="clearfix"></div>
+                     </div>
+		          </#list>
+                     <!-- <div class="pagesize">
+                          <ul>
+                              <li><span>跳转到：</span><input name="" type="text" class="text_box" /><input name="" type="button" value="GO" class="text_btn" /></li>
+                              <li><a href="#">下一页</a></li>
+                              <li><a href="#">上一页</a></li>
+                          </ul>                              
+                     </div> -->
+                      <form id="queryForm" method="post">
+                     <@page.page url="${basePath}/fmessageAction!message.action" name="pagination"></@page.page>
+                     </form>
+                     <div class="clearfix"></div>
+                </div>
+                <a name="liuyan"></a>
+                 <div class="mes_nr">
+                 	<input class="messageTitle" placeholder="请输入标题" style="border:1px solid #65C4AE;width:100%;margin-bottom:20px;height:30px;"/>
+                     <textarea name="" cols="" rows="" placeholder="请输入内容" class="text_area messageContent" style="border:1px solid #65C4AE;width:100%;"></textarea>
+                     <div class="tongbu">
+                     <span>
+                     </span>
+                     <a href="javacsript:;"class="teac_icon xinlang"></a>
+                     <a href="javacsript:;"  class="teac_icon tengxun"></a>
+                     <a href="javacsript:;"  class="teac_icon renren"></a></div>
+                     <div class="fabiao"><input name="" type="button" class="submit" onclick="addMessage(this)" value="发表留言" />
+                     <span>还可以输入140字</span>
+                     </div>
+                     <div class="clearfix"></div>
+                </div>
+               </div>
+		<div class="clear"></div>
+	</div>
+	<!-- main end -->
+	<!-- foot start -->
+    <#include "frontcommon/footer.ftl">
+	<!-- font-end -->
+	<script type="text/javascript" src="assets/js/jquery.hDialog.js"></script>
+	<script type="text/javascript">
+	var messageTitle = $.tmCookie.getCookie("messageTitle");
+	var messageContent = $.tmCookie.getCookie("messageContent");
+	if(messageTitle){
+		$(".messageTitle").val(messageTitle);
+	}
+	if(messageContent){
+		$(".messageContent").val(messageContent);
+	}
+	 function addMessage(obj){
+		var title = $(".messageTitle").val();
+		var content = $(".messageContent").val();
+		if(title == "" ){
+	    $.tooltip('标题还没有填偶。。'); 
+		
+		}else if(title.length>=100){
+			$.tooltip('标题长度过长。。'); 
+		}else if(content.length>=255){
+            $.tooltip('内容长度过长。。'); 
+        }else if(content == ""){
+			$.tooltip('内容还没有填偶。。'); 
+		}else{
+			$.ajax({
+				url:"json/fmessageAction!add.action",
+				type:"post",
+				data:{
+					title:title,
+					content:content
+				},
+				success:function(data){
+				    if(data.result || data.result == "sessionEmpty"){
+				    	  alert('您还没有登录，请前往首页登录。。'); 
+				    	  $.tmCookie.setCookie("messageTitle",title,"d1");
+				    	  $.tmCookie.setCookie("messageContent",content,"d1");
+				    	  window.location.href="indexAction!index.action";
+				    }else if(data.result || data.result == "erro"){
+				    	 $.tooltip('服务器出错了。。请刷新重试'); 
+				    }else{
+				    	$.tmCookie.delCookie("messageTitle");
+				    	$.tmCookie.delCookie("messageContent");
+				    	$.tooltip('发表成功',2000,true); 
+				    	$(".mes_list").prepend($(data));
+			    	    $(".messageTitle").val("");
+			            $(".messageContent").val("");
+				    }
+				}
+		    });
+		}
+	 }
+	</script>
+ </body>
+</html>

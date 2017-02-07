@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>专家管理</title>
+<#include "/WEB-INF/common/ref.ftl"/>
+<link href="js/upload/upload.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/upload/tz_upload.js"></script>
+<script type="text/javascript" src="js/tz_util.js"></script>
+<script type="text/javascript" src="js/Ds_loading.js"></script>
+</head>
+
+<body>
+<div class="container">
+     <#include "/WEB-INF/common/header.ftl"/>   
+     <div class="ht_con clearfix">
+          <div class="add_nr">
+               <div class="row_sty clearfix">
+                   <a href="javascript:void(0);" class="add_btn btn" style="margin-left:38px;">添加专家</a>
+                   <a href="${basePath}/userAction!page.action" class="add_btn btn" style="margin-left:38px;">返回用户列表</a>
+               </div>
+          </div>
+          <div class="add_nr">
+               <div class="row_sty clearfix">
+                   <p>用户名：</p>
+                   <input type="text" class="text_box userName"placeholder="请在此输入真实姓名--">
+               </div>
+               <div class="row_sty clearfix">
+                   <p>密码：</p>
+                   <input type="text"  class="text_box password" placeholder="请在此输入真实QQ--">
+               </div>
+               <div class="row_sty clearfix">
+                   <p>专家名字：</p>
+                   <input type="text" class="text_box realName" id="exper_name" placeholder="请在此输入真实姓名--">
+               </div>
+               <div class="row_sty clearfix">
+                   <p>专家QQ：</p>
+                   <input type="text" id="qq_exper" class="text_box" placeholder="请在此输入真实QQ--">
+               </div>
+               <div class="row_sty clearfix">
+                    <p> <a href="javascript:void(0);" id="teacherupload">上传图片</a></p>
+                    <div class="pic_show">
+                         <div id="kecheng" data-src="images/touxiang1.jpg" style="border-radius:100%;width:136px;height:136px;background:url('images/touxiang1.jpg') no-repeat center center;background-size:cover"></div>
+                    </div>
+               </div>
+               <div class="row_sty clearfix">
+                   <p>讲师介绍：</p>
+                   <textarea class="textarea_nr" id="jieshao"></textarea>
+               </div>
+               <div class="row_sty clearfix">
+                   <p>&nbsp;</p>
+                   <a href="javascript:void(0);" class="submit btn" onclick="tijiao(this)">立即提交</a>
+               </div>               
+          </div>
+          <div class="kc_list">
+               <ul id="expert_ui">
+               <#list userList as user>
+                   <li><div style=" margin:0 auto;border-radius:100%;width:136px;height:136px;background:url('${user.headImg!}') no-repeat center center;background-size:cover;"></div><p>${user.realName!}</p><p style="text-align:center;">描述：${user.description!}</p><p style="text-align:center;">QQ：${user.qq!}</p>
+					<a href="userAction!deleteExport.action?id=${user.id!}" class="btn edit">删除</a></li>
+               </#list>
+               </ul>
+          </div>
+     </div>
+</div>
+<#include "/WEB-INF/common/foot.ftl"/>
+<script type="text/javascript">
+ $.tmUpload({
+    btnId:"teacherupload",//上传组件附加的位置
+    url:"${basePath}/json/uploadAction!uploadeFile.action?type=exper",//文件上传上类的服务器路径
+    limitSize:"100 MB",//限制文件上传的大小
+    fileTypes:"*.jpg;*.gif;*.png",//限制文件上传的格式 *.*代表不限制
+    //params:{"username":"kekek","password":"123456"},//给服务器端传递参数 request.getParameter("username")
+    multiple:false,//控制文件多选还是单选
+    callback:function(serverData,file){//上传成功的回调方法
+        var jsonData = eval("("+serverData+")");
+        if(jsonData.result == "nameEmpty"){
+            alert("请先填写专家名称");
+        }else{
+            $("#kecheng").css("background","url(${basePath}"+jsonData.result+") no-repeat center center");
+            $("#kecheng").css("background-size","cover");
+            $("#kecheng").data("src","${basePath}"+jsonData.result);
+        }
+    }
+}); 
+ function tijiao(obj){
+	    var userName = $(".userName").val();
+	    var password = $(".password").val();
+	    var realName = $(".realName").val();
+	    var  qq= $("#qq_exper").val();
+	    var _src = $("#kecheng").data("src");
+	    var description = $("#jieshao").val();
+	    var type = 1;
+	     if(isEmpty(userName)){
+             load_loading("请输入用户名",obj);
+             return;
+         }else if(isEmpty(password)){
+	         load_loading("请输入密码",obj);
+	         return;
+	     }else if(isEmpty(realName)){
+             load_loading("请输入真实姓名",obj);
+             return;
+         }else if(isEmpty(qq)){
+             load_loading("请出入专家qq",obj);
+             return;
+         }else if(isEmpty(description)){
+             load_loading("请出入描述",obj);
+             return;
+         }else{
+	         $.ajax({
+	             url:"json/userAction!ajaxAdd.action",
+	             type:"post",
+	             data:{
+	            	 "userName":userName,
+	            	 "password":password,
+	            	 "realName":realName,
+	            	 "headImg":_src,
+	                 "description":description,
+	                 "type":type,
+	                 "qq":qq
+	             },
+	             success:function(data){
+	            	 if(data.result == "exsit"){
+	            		 load_loading("用户名已存在，请换个名字！",obj);
+	            	 }else if(data.result == "success"){
+	            		 history.go(0);
+	            	 }else {
+	            		 load_loading("对不起服务器出错，请刷新界面重试！",obj);
+	            	 }
+	             }
+	         });
+	     }
+	}
+	function load_loading(title,obj){
+	    $(obj).Ds_loading({
+	        title:title,
+	        position : "top",
+	        marginTop : 120,
+	        time:2000
+	    });
+	}
+</script>
+</body>
+</html>

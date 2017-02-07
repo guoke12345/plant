@@ -1,0 +1,86 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登录页面</title>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>     
+<script type="text/javascript" src="js/sg/sg.js"></script>
+<link rel="stylesheet" type="text/css" href="js/sg/css/sg.css"/>
+<link rel="stylesheet" type="text/css" href="css/login.css">
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/tz_util.js"></script>
+<script type="text/javascript" src="js/Ds_loading.js"></script>
+</head>
+<body>
+<div id="login_div">
+     <div class="login_bt">
+          <div class="login_logo" style=""><h1 style="font-size:30px;color:#fff;">病虫害管理系统后台登录</h1></div>
+     </div>
+     <div class="login_nr">
+          <div class="login_zi">
+               <div class="tishi" style="display:none;"><span class="icon_close"></span><p>您输入的用户名或密码不正确，请重新输入！</p></div>
+               <div class="tishi"><span class="icon_ok"></span><!-- <p>输入正确，恭喜您登录成功！</p> --></div>
+               <div class="box" style="margin-top:20px;">
+                    <input name="" type="text" id="account" placeholder="请输入账号"  maxlength="50" class="user_box" />
+                    <div class="user_pic"></div>
+               </div>
+               <div class="box" style="margin-top:20px;">
+                    <input name="" type="password" id="password" placeholder="请输入密码"  maxlength="50" class="user_box" />
+                    <div class="password_pic"></div>
+               </div>
+               <div style="height:40px;">
+               </div>
+               <div class="clearfix"></div>
+               <input name="" onclick="tz_login(this)" type="button" class="submit_btn" value="登 录" />
+          </div>
+     </div>
+</div>
+<script type="text/javascript">
+    $(document).keydown(function(e){
+        if(e.which ==13 || e.ctrlKey ==13){
+        	$(".submit_btn").trigger("click");
+        }  	
+    });
+    function tz_login(obj){
+        var account = $("#account").val();
+        var password = $("#password").val();
+         if(isEmpty(account)){
+             load_loading("用户名不能为空",obj);
+           
+             return;
+         }else if(isEmpty(password)){
+             load_loading("密码不能为空",obj);
+             return;
+         }
+        $.ajax({
+            url:"json/loginAction!CheckLogin.action",
+            type:"post",
+            data:{
+                "userName":account,
+                "password":password,
+            },
+            success:function(data){
+                if(data.result=="successadmin"){
+                    window.location.href="headimgAction!banner.action"; 
+                }else if(data.result=="successexper"){
+                    window.location.href="questionAction!toList.action";
+                }else if(data.result=="empty"){
+                	load_loading(data.msg,obj);
+                	$("#account").select();
+                    $("#password").val("");
+                }
+            }
+        });
+    }
+    function load_loading(title,obj){
+        $(window).Ds_loading({
+            title:title,
+            position : "top",
+            marginTop : 90,
+            time:2000,
+            background:"red"
+        });
+    }
+</script>
+</body>
+</html>

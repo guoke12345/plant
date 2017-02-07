@@ -1,0 +1,76 @@
+@charset "utf-8";
+/* CSS Document */
+.wth1100{ width:1100px; margin:0 auto;}
+.teac_icon{ background-image:url(../../images/teac_icon.png); background-repeat:no-repeat;}
+a{ font-size:12px; color:#4a4d52;}
+a:hover{ text-decoration:none;}
+.wth715{ width:715px;}
+
+
+.liuyan_btn{
+	display:block;width:130px;height:40px;text-align:center;line-height:40px;float:left;border-radius:20px;border:1px solid 65C4AE;color:65C4AE;
+}
+.liuyan_btn:hover{
+	background:65C4AE;
+	color:#fff;
+}
+.teac_pic{ width:330px; height:380px; background:#ffffff; float:left;
+-webkit-box-shadow:3px 3px 5px -3px #232323;
+-moz-box-shadow:3px 3px 5px -3px #232323;
+box-shadow:3px 3px 5px -3px #232323;}
+.teac_pic a{ display:block; padding:6px 6px 6px 6px;}
+.teac_pic img{ width:318px; height:368px;}
+.teac_nr{ width:740px; height:380px; float:right;}
+.teac_bt{ width:100%; height:33px; padding-top:30px;}
+.teac_bt span{ display:block; padding-left:35px; padding-right:35px; height:33px; line-height:33px; font-size:18px; color:#ffffff; background:#da8787; -moz-border-radius:2px;-webkit-border-radius:2px;border-radius: 2px; float:left;}
+.teac_zi{ width:100%; padding-top:10px; line-height:30px; font-size:14px; color:#ffffff;}
+#message{ margin:40px auto; width:971px;}
+#message .mes_nr{ width:100%; padding-bottom:15px;}
+#message .text_area{ width:99.6%; height:100px; border:1px solid #e1e1e1;  margin-bottom:6px;}
+#message .tongbu{ float:left; height:21px; padding-top:4px;}
+#message .tongbu span{ display:block; float:left; font-size:12px; line-height:21px; color:#a3a3a3;}
+#message .tongbu a{ display:block; float:left; margin-left:6px; width:21px; height:21px;}
+#message .tongbu .xinlang{ background-position:0px -35px;}
+#message .tongbu .xinlang:hover{ background-position:0px -57px;}
+#message .tongbu .tengxun{ background-position:-25px -35px;}
+#message .tongbu .tengxun:hover{ background-position:-25px -57px;}
+#message .tongbu .renren{ background-position:-50px -35px;}
+#message .tongbu .renren:hover{ background-position:-50px -57px;}
+#message .fabiao{ float:right; height:30px; line-height:30px; margin-right:0.1%;}
+#message .fabiao span{ display:block; float:right; padding-right:10px; font-size:12px; color:#a3a3a3;}
+#message .fabiao .submit{ width:70px; height:30px; float:right; color:#ffffff; font-size:12px; background:#4eb2e5; border:0px; -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px; cursor:pointer;}
+#message .fabiao .submit:hover{ background:#3198cd;}
+#message .mes_list{ width:100%; padding-bottom:20px;}
+.sort{ width:1100px; margin:40px auto; height:18px; line-height:40px;margin-left: 91px;}
+.sort a.current{ color:#5ab0dc;}
+.sort span{
+	font-size:20px;
+	font-weight:600;
+}
+#message .disc_list{ width:100%; border-bottom:1px solid #ededed; padding-bottom:10px; padding-top:15px;}
+#message .disc_list .pic{ width:88px; height:88px; float:left;border-radius: 44px;background-position:center;}
+#message .disc_list .liuyan{ width:660px; float:right;}
+#message .disc_list .liuyan1{ width:830px; float:right;}
+#message .disc_list dt{ width:100%; height:30px;font-size:22px; line-height:30px; font-weight:bold;}
+#message .disc_list dd{ width:100%; line-height:30px; font-size:16px;}
+#message .disc_list .pubdata{ width:100%; height:20px; padding-top:6px;  font-size:12px;}
+#message .disc_list .pubdata span{ display:block; float:left;}
+#message .disc_list .pubdata a{ display:block; padding-left:10px; }
+#message .disc_list .pubdata p{ float:left; padding-left:3px;}
+#message .disc_list .pubdata a:hover{color:#bfbfbf;}
+#message .disc_list .pubdata .onlike{ width:16px; height:16px; background-position:-156px 0px; margin-top:3px;}
+#message .disc_list .pubdata .nolike{ width:16px; height:16px; background-position:-175px 0px; margin-top:3px;}
+#message .disc_list .pubdata:hover,#message .disc_list .pubdata:hover a{ color:#838383;}
+#message .disc_list .pubdata a:hover .onlike{ width:16px; height:16px; background-position:-156px -17px; margin-top:3px;}
+#message .disc_list .pubdata a:hover .nolike{ width:16px; height:16px; background-position:-175px -17px; margin-top:3px;}
+#message .pagesize{ width:100%; padding-bottom:20px; padding-top:20px;}
+#message .pagesize li{ height:26px; padding-left:8px; float:right; font-size:12px;}
+#message .pagesize li span{ display:block; float:left;}
+#message .pagesize li a{ display:block; width:60px; height:26px; line-height:26px; background:#bfbfbf; color:#ffffff; text-align:center; -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;}
+#message .pagesize .text_box{ width:36px; height:24px; border:1px solid #bfbfbf; border-right:none; background:#ffffff; float:left;}
+#message .pagesize .text_btn{ width:30px; height:26px; border:0px; background:#bfbfbf; color:#ffffff; cursor:pointer; float:left;}
+
+
+
+
+

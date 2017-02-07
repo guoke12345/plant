@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>文章管理</title>
+<link href="css/sg.css" rel="stylesheet">
+<link href="css/ht_page.css" rel="stylesheet">
+<style type="text/css">
+#newsType{
+  width:200px;
+  height:30px;
+}
+</style>
+    <!-- 样式文件 -->
+<link rel="stylesheet" href="./umeditor/themes/default/css/umeditor.css">
+<!-- 引用jquery -->
+<script src="./umeditor/third-party/jquery.min.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="./umeditor/umeditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="./umeditor/umeditor.js"></script>
+<!-- 语言包文件 -->
+<script type="text/javascript" src="./umeditor/lang/zh-cn/zh-cn.js"></script>
+</head>
+<body>
+<div class="container">
+     <div class="dh clearfix">
+          <div class="dh_left fl"><img src="images/logo.png" alt=""/></div>
+          <div class="dh_list fl">
+               <ul>
+                   <li><a href="banner.html">banner管理</a></li>
+                   <li><a href="wendaList.html">问答管理</a></li>
+                   <li><a href="news.html">新闻管理</a></li>
+                   <li><a href="teacher.html">专家管理</a></li>
+                   <li><a href="chonghaiList.html">虫害管理</a></li>
+                    <li><a href="binghaiList.html">病害管理</a></li>
+                   <li class="select"><a href="articleList.html">文章管理</a></li>
+               </ul>
+          </div>
+     </div>
+     <div class="ht_con clearfix">
+          <a href="javascript:void(0);" class="add_btn btn" style="margin-left:38px;">点击增加文章</a>
+          <a href="articleList.html" class="add_btn btn" style="margin-left:38px;">返回文章列表</a>
+          <div class="add_nr">
+               <div class="row_sty clearfix">
+                   <p>文章标题：</p>
+                   <input type="text" class="text_box" placeholder="请在此输入文章标题">
+               </div>
+                <div class="row_sty clearfix">
+                   <p>作者：</p>
+                   <input type="text" class="text_box" placeholder="请在此输入作者名字">
+               </div>
+              <div class="row_sty clearfix">
+                   <p>文章分类：</p>
+                    <select id="newsType">
+                      <option value ="volvo">Volvo</option>
+                      <option value ="saab">Saab</option>
+                      <option value="opel">Opel</option>
+                      <option value="audi">Audi</option>
+                    </select>
+              </div>
+          </div>
+     </div>
+      <div class="uedit" style="width:900px;height:940px;margin:-30px auto;">
+          <script id="container" name="content" type="text/plain" style="width:900px;height:900px;">
+          </script>
+         <!-- 实例化编辑器代码 -->
+          <script type="text/javascript">
+             $(function(){
+                window.um = UM.getEditor('container', {
+                    /* 传入配置参数,可配参数列表看umeditor.config.js */
+                    toolbar: ['| undo redo | bold underline | forecolor backcolor |',
+                    '| cleardoc paragraph | fontfamily fontsize' ,
+                    '| justifyleft justifycenter justifyright justifyjustify |',
+                    'link unlink image',
+                    '| preview fullscreen',]
+                });
+            });
+          </script>
+      </div>  
+</div>
+<div class="bottom">Copyright © 2013-2015 www.qddouzi.com All Rights Reserved 版权所有：青岛豆子科技有限公司 备案号：备13016338号</div>
+</body>
+</html>

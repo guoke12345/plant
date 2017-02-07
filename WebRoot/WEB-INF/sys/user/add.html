@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>文章管理</title>
+<link href="css/sg.css" rel="stylesheet">
+<link href="css/ht_page.css" rel="stylesheet">
+<style type="text/css">
+#newsType{
+  width:200px;
+  height:30px;
+}
+</style>
+<!-- 样式文件 -->
+<link rel="stylesheet" href="./umeditor/themes/default/css/umeditor.css">
+<!-- 引用jquery -->
+<script src="./umeditor/third-party/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="./umeditor/umeditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="./umeditor/umeditor.js"></script>
+<!-- 语言包文件 -->
+<script type="text/javascript" src="./umeditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="js/tz_util.js"></script>
+<script type="text/javascript" src="js/Ds_loading.js"></script>
+</head>
+<body>
+<div class="container">
+<#include "/WEB-INF/common/header.ftl"/>
+<form name="form" action="${basePath}/userAction!add.action" method="post">
+     <div class="ht_con clearfix">
+          <div class="add_nr">
+          <form>
+               <div class="row_sty clearfix">
+                   <p>用户名：</p>
+                   <input type="text" class="text_box article_title" name="userName" placeholder="请在此输入用户名">
+               </div>
+               <div class="row_sty clearfix">
+                   <p>真实姓名：</p>
+                   <input type="text" class="text_box article_title" name="realName" placeholder="请在此输入真实姓名">
+               </div>
+                <div class="row_sty clearfix">
+                   <p>密码：</p>
+                   <input type="text" class="text_box article_author" name="password" placeholder="请在此输入密码">
+               </div>
+               <div class="row_sty clearfix">
+                   <p>描述：</p>
+                   <input type="text" class="text_box article_author" name="description" placeholder="请在此输入专家简介">
+               </div>
+                <div class="row_sty clearfix">
+                   <p>用户：</p>
+                   <select id="newsType" name="type">
+                     <#list typeList as class>
+                    	<#if class.type = 0 || class.type = 2>
+                      		<option value ="${class.type!}">${class.mean!''}</option>
+                      	</#if>	
+                      </#list>
+                    </select>
+               </div>
+			<div class="btn_set" style="height:50px;margin-top:30px;margin-bottom:20px;margin-left:10px;">
+				<input  class="add_btn btn add_article" type="button" style="margin-left:50px;" value="点击添加用户" onclick="tijiao(this);"/>
+				<a href="${basePath}/userAction!page.action" class="add_btn btn" style="margin-left:38px;">返回用户列表</a>
+			</div>
+			</form>
+          </div>
+     </div>
+</form>    
+          <script type="text/javascript">
+			//这段要放在文本编辑器的实例化之后
+			function tijiao(obj){
+              var userName = $("input[name=userName]").val();
+              var realName = $("input[name=realName]").val();
+              var type = $("#newsType").val();
+              var description = $("input[name=description]").val();
+              var password = $("input[name=password]").val();
+              if(isEmpty(userName)){
+                  load_loading("用户名不能为空",obj);
+                  return;
+              }else if(isEmpty(realName)){
+                  load_loading("真实姓名不能为空",obj);
+                  return;
+              }else if(isEmpty(description)){
+                  load_loading("描述不能为空",obj);
+                  return;
+              }else if(isEmpty(password)){
+                  load_loading("密码不能为空",obj);
+                  return;
+              }else if(isEmpty(type)){
+                  load_loading("类型不能为空",obj);
+                  return;
+              }else{
+		         $.ajax({
+		             url:"json/userAction!judjeUserName.action",
+		             type:"post",
+		             data:{
+		            	 "userName":userName,
+		            	 "password":password,
+		             },
+		             datatype:"json",
+		             success:function(data){
+		            	 if(data.result == "exsit"){
+		            		 load_loading("用户名已存在，请换个名字！",obj);
+		            	 }else if(data.result == "success"){
+		            		  form.submit();
+		            	 }else {
+		            		 load_loading("对不起服务器出错，请刷新界面重试！",obj);
+		            	 }
+		             }
+		         }); 
+              }
+          }
+          function load_loading(title,obj){
+              $(obj).Ds_loading({
+                  title:title,
+                  position : "top",
+                  marginTop : 120,
+                  time:2000
+              });
+          } 
+		</script>
+      </div>  
+</div>
+<#include "/WEB-INF/common/foot.ftl"/>
+</body>
+</html>

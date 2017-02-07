@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+    <!-- FRONT START -->
+    <package name="front" extends="struts-default">
+        <action name="indexAction" class="action.IndexAction">
+            <result name="index" type="freemarker">index.html</result>
+            <result name="toIndex" type="redirect">indexAction!index.action</result>
+        </action>
+         <action name="fdiagnosisAction" class="action.FDiagnosisAction">
+           <result name="list" type="freemarker">zhenduansys.html</result>
+           <result name="diagnosisList" type="freemarker">diagnosisList.html</result>
+        </action>
+        <action name="fpestAction" class="action.FPestAction">
+            <result name="pest" type="freemarker">pest.html</result>
+        </action>
+        <action name="fdiseasesAction" class="action.FDiseasesAction">
+            <result name="diseases" type="freemarker">diseases.html</result>
+        </action>
+        <action name="fmessageAction" class="action.FMessageAction">
+            <result name="message" type="freemarker">message.html</result>
+        </action>
+        <action name="farticleAction" class="action.FArticleAction">
+            <result name="article" type="freemarker">articlequestion.html</result>
+        </action>
+        <action name="fnewsAction" class="action.FNewsAction">
+            <result name="news" type="freemarker">news.html</result>
+        </action>
+        <action name="fdownloadAction" class="action.DownLoadAction">
+            <result name="download" type="freemarker">download.html</result>
+        </action>
+        <action name="fexpertAction" class="action.FExpertAction">
+            <result name="expert" type="freemarker">expert.html</result>
+        </action>
+    </package>   
+    <package name="frontajax" namespace="/json" extends="json-default">
+        <global-results>
+            <result type="json" name="ajaxSuccess">
+                <param name="ignoreHierarchy">false</param><!-- 这个属性表示是否忽略等级，也就是继承关系,设置为 false 后会将父类和子类的属性一起返回 -->
+                <param name="excludeNullProperties">true</param><!-- 这个属性表示去除空数据 -->
+            </result>
+        </global-results>
+        <action name="fpestAction" class="action.FPestAction">
+            <result name="pestTemplate" type="freemarker">/frontcommon/pestTemplate.html</result>
+        </action>
+         <action name="fdiseasesAction" class="action.FDiseasesAction">
+            <result name="diseasesTemplate" type="freemarker">/frontcommon/diseasesTemplate.html</result>
+        </action>
+         <action name="fdiseasesAction" class="action.FDiseasesAction">
+            <result name="diseasesTemplate" type="freemarker">/frontcommon/diseasesTemplate.html</result>
+        </action>
+         <action name="indexAction" class="action.IndexAction">
+        </action>
+         <action name="fmessageAction" class="action.FMessageAction">
+          <result name="messageTemplate" type="freemarker">/frontcommon/messageTemplate.html</result>
+        </action>
+         <action name="fnewsAction" class="action.FNewsAction">
+        </action>
+    </package>
+    <!-- FRONT END -->
+</struts> 

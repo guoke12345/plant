@@ -1,0 +1,185 @@
+<!doctype html>
+<#assign page=JspTaglibs["/WEB-INF/dh.tld"] />
+<html>
+<head>
+<meta charset="utf-8">
+<title>诊断管理</title>
+<link href="css/sg.css" rel="stylesheet">
+<link href="css/ht_page.css" rel="stylesheet">
+<script type="text/javascript" src="layer/jquery.min.js"></script>
+<script type="text/javascript" src="layer/layer.js"></script>
+</head>
+<body>
+<style>
+ .news_list .right{width:150px;border-left:1px solid #e3e3e3;}
+</style>
+	<div class="container" style="min-height:480px;height:480px;height:auto!important;">
+		<#include "/WEB-INF/common/header.ftl"/>
+		<div class="ht_con clearfix" style="padding-bottom:0px;">
+			<a href="javascript:void(0);" onclick="addZhengZhuang()" class="add_btn btn" style="margin-left:38px;">增加症状</a>
+			<a  class="add_btn btn" href="javascript:;" onclick="history.back();" style="margin-left:38px;">返回</a>
+			<div class="row_sty clearfix">
+			</div>
+		</div>
+		<#if (diaList?size>0) >
+		<table class="news_list">
+			<tr>
+				<th>症状</th>
+				<th class="right">操作</th>
+			</tr>
+			<#list diaList as list>
+			<tr>
+				<td>
+					<a title="${list.name!}" href="diagnosisAction!list.action?id=${list.id!}">${list.name!}</a>
+				</td>
+				<td class="right"><a href="javascript:modify(${list.id!});" class="edit_w">编辑</a>
+					<a href="javascript:del(${list.id!});" >删除</a>
+				</td>
+			</tr>
+			</#list>
+		</table>
+		<#else>
+			<table class="news_list">
+				<tr>
+					<th style="width:30%;">病害名称</th>
+					<th>别名</th>
+					<th class="right">操作</th>
+				</tr>
+				<#if disList?? >
+					<#list disList as list>
+					<tr>
+						<td>
+							<a title="${list.name!}" href="diagnosisAction!list.action?id=${list.id!}">${list.name!}</a>
+						</td>
+						<td>
+							<a title="${list.othername!}" href="diagnosisAction!list.action?id=${list.id!}">${list.othername!}</a>
+						</td>
+						<td class="right">
+						<!-- <a href="${basePath}/pestAction!toEdit.action?"
+							class="edit_w">编辑</a> -->
+							<a href="javascript:delDisease(${list.id!},${id!});" >删除</a>
+						</td>
+					</tr>
+					</#list>
+					<tr>
+						<td colspan="3" style="text-align:center;">
+							<a id="binghai" href="javascript:;" style="color:red;font-size:16px;" >点击添加病害</a>
+						</td>
+					</tr>
+				</#if>
+			</table>
+		</#if>
+	</div>
+	<#include "/WEB-INF/common/foot.ftl"/>
+</body>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+//跳转到添加病害页面
+	$("#binghai").click(function(){
+		//页面层
+		layer.open({
+		    type: 2,
+		    title:['添加病害','font-size:15px;font-weight:bold;text-align:center;'],
+		    skin: 'layui-layer-rim', //加上边框
+		    area: ['700px', '630px'], //宽高
+		   content: 'diagnosisAction!diseaseList.action?id=${id!}' //iframe的url
+		});
+	});
+});
+	
+	
+	//删除隶属下的病害
+	function delDisease(disId,id){
+		if(disId != "" ||disId != null || id != "" || id != null){
+			$.ajax({
+				url:"diagnosisAction!delDiseases.action",
+				data:{"id":id,"disId":disId},
+				datatype:"json",
+				type:"post",
+				success:function(data){
+				console.log(data);
+					if(data.status == 1){
+						window.location.reload();				
+					}else{
+						alert("操作失败！");
+					}
+				}
+			})
+		}
+	}
+	//删除症状
+	function del(id){
+	if( ${id!} == 0 || ${id!} == ""){
+		layer.alert('这里不能删除！', {
+		    icon: 0,
+			 skin: 'layer-ext-moon'
+ 		});
+		}else{
+		layer.confirm('确认删除子目录下的所有信息？', {icon: 0}, function(index){
+	    layer.close(index);
+	   		 $.ajax({
+						url:"diagnosisAction!delete.action",
+						data:{"id":id},
+						type:"post",
+						datatype:"json",
+						success:function(data){
+							if(data.result == 1){
+								window.location.reload();
+							}else{
+								alert("操作失败！");
+							}
+					   }
+				})
+	     });
+	     }
+	}
+	//编辑症状
+	function modify(id){
+		if( id != 0 || id != ""){
+		layer.open({
+		    type: 2,
+		    title:['编辑症状','font-size:15px;font-weight:bold;text-align:center;'],
+		    skin: 'layui-layer-rim', //加上边框
+		    area: ['500px', '350px'], //宽高
+		    // shadeClose: true,   //开启遮罩关闭
+    		// shade: 0.8,
+		   content: 'diagnosisAction!toModifyZhengZhuang.action?id='+id //iframe的url
+		});
+		}else{
+			alert("操作异常");
+		}
+	}
+	
+	
+	//添加症状
+	function addZhengZhuang(){
+	if( ${id!} == 0 || ${id!} == ""){
+		layer.alert('这里不能再添加症状！', {
+		    icon: 0,
+			 skin: 'layer-ext-moon'
+ 		});
+		}else{
+		layer.open({
+		    type: 2,
+		    title:['添加症状','font-size:15px;font-weight:bold;text-align:center;'],
+		    skin: 'layui-layer-rim', //加上边框
+		    area: ['500px', '350px'], //宽高
+		    // shadeClose: true,   //开启遮罩关闭
+    		// shade: 0.8,
+		   content: 'diagnosisAction!toAddZhengZhuang.action?id=${id!}' //iframe的url
+		});
+		}
+		
+		}
+	function load_loading(title,obj){
+              $(obj).Ds_loading({
+                  title:title,
+                  position : "top",
+                  marginTop : 120,
+                  time:1000
+              });
+          }
+</script>
+</html>

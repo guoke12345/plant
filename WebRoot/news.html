@@ -1,0 +1,104 @@
+<!doctype>
+<#assign page=JspTaglibs["/WEB-INF/dh.tld"] />
+<html lang="en">
+ <head>
+    <meta  http-equiv="Content-Type" content="text/html ; charset=utf-8"/>
+    <title>茶树病虫害远程专家系统</title>
+    <meta name="keywords" content="青岛农业,青岛农业大学,茶树,主要,病害,病虫害,技术,,防治措施" />
+    <meta name="description" content="茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主" />
+  <!--导入css 版的jquery-->
+    <link rel="stylesheet" type="text/css" href="assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/ds_main.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/tea.css">
+    <script type="text/javascript" src="assets/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/ds_goTop.min.js" ></script>
+    <script type="text/javascript" src="assets/js/ds_banner.js"></script>
+ </head>
+ <body>
+ <#include "frontcommon/header.ftl">
+    <!-- banner end -->
+    <!-- main start -->
+	<div id="main" >
+		<div id="main_left" style="padding-bottom:20px;">
+			<div class="zhenduan_title">
+				<div class="abs_title" style="left:75px"><span class="abs_span">预警信息</span><p class="abs_p">PROBLEM&nbsp;&nbsp;CLASSFICACTION</p></div>
+			</div>
+			<div class="ques_list">
+				<ul class="ques_ul" style="text-align:left;">
+				<#list pagination.list as news>
+					<li class="ques_item artile_${news.id}">
+					<a href="javascript:;" onclick="ajaxSelectOne(this)" title="${news.title!}"  data-opid="${news.id}">
+						<#if news.title!?length gt 16>
+							${news.title?substring(0,15)}......
+						<#else>
+							${news.title!}		
+						</#if>
+						
+					</a></li>
+				</#list>
+				</ul>
+				<input type="hidden" class="class_id" value=".artile_${id!}"/>
+                    <script type="text/javascript">
+                    if($(".class_id").val()==".artile_0"){
+                    	$(".ques_item:first-child").addClass("selected-child");
+                    }else{
+                        var class_id = $(".class_id").val();
+                        $(class_id).addClass("selected-child").siblings().removeClass("selected-child");
+                    }
+                    $(".ques_item").click(function(){
+                    	$(this).addClass("selected-child").siblings().removeClass("selected-child");
+                    });
+                    </script>
+			</div>
+	   <form id="queryForm" method="post">
+            <@page.page url="${basePath}/fnewsAction!news.action" name="pagination"></@page.page>
+       </form>
+		</div>
+		<div id="main_mid"></div>
+		<div id="main_right">
+			<div class="zhenduan_title" style="">
+				<div class="abs_title"><span class="abs_span">预警详情</span><p class="abs_p">DETAILE&nbsp;&nbsp;OF&nbsp;&nbsp;THE&nbsp;&nbsp;PROBLEM</p></div>
+			</div>
+             <div class="ques_list answer" style="padding-bottom:20px;"> 
+                   <h2 class="ques_h2">${firstNews.title!}</h2>
+                   <p style="text-align:center;line-height:50px;">${firstNews.author!}</p>
+                   <div class="answer_article">
+                       ${firstNews.content!}
+                   </div>
+            </div>
+			</div>
+			<div class="clear"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- main end -->
+	<!-- foot start -->
+    <#include "frontcommon/footer.ftl">
+	<!-- font-end -->
+	<script type="text/javascript">
+	function ajaxSelectOne(obj){
+		var id = $(obj).data("opid");
+		$(obj).addClass("");
+		$.ajax({
+			url:"json/fnewsAction!ajaxSelectOne.action",
+			type:"post",
+			data:{
+				id:id
+			},
+			success:function(data){
+				 if(data.result == "success"){
+				    var news = data.newsone;
+				    $(".answer").html("<h2 class='ques_h2'>"+news.title+"</h2>"+
+	                "   <p style='text-align:center;line-height:50px;'>"+news.author+"</p>"+
+	                "   <div class='answer_article'>"+
+	                   news.content +
+	                "   </div>"); 
+				} 
+			}
+		});
+	}
+	</script>
+ </body>
+</html>

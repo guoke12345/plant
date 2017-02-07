@@ -1,0 +1,4 @@
+#Wed Oct 21 17:45:15 CST 2015
+eclipse.preferences.version=1
+validator.Checked=WebRoot/layer/jquery.min.js,WebRoot/assets/js,src/struts.xml,WebRoot/js,WebRoot/umeditor,WebRoot/WEB-INF/sys/diagnosis/list.html,src/struts-front.xml,WebRoot/index.html,src/struts-sys.xml
+validator.Unchecked=

@@ -1,0 +1,103 @@
+<!doctype>
+<#assign page=JspTaglibs["/WEB-INF/dh.tld"] />
+<html lang="en">
+ <head>
+    <meta  http-equiv="Content-Type" content="text/html ; charset=utf-8"/>
+    <title>茶树病虫害远程专家系统</title>
+    <meta name="keywords" content="青岛农业,青岛农业大学,茶树,主要,病害,病虫害,技术,,防治措施" />
+    <meta name="description" content="茶树主要病害防治 (一)茶饼病 茶饼病在四川、贵州、云南、广西、广东等省茶区的高山茶园 发生较为严重，是茶树上一种重要的芽叶病害。危害后不仅影 响产量，而且成茶味苦易碎，茶叶品质明显下降。 [识别] 主要为害嫩叶和新梢。先在嫩叶上产生淡绿... 茶树主" />
+  <!--导入css 版的jquery-->
+    <link rel="stylesheet" type="text/css" href="assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/ds_main.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/tea.css">
+    <script type="text/javascript" src="assets/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/ds_goTop.min.js" ></script>
+    <script type="text/javascript" src="assets/js/ds_banner.js"></script>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=ed419eaa61c8c9fb7a5fccdb9665d3a4"></script>
+ </head>
+ <body>
+ <input type="hidden" value="${firstQuestion.xpoint!}" id="xPoint" /><input type="hidden" value="${firstQuestion.ypoint!}" id="yPoint" />
+ <#include "frontcommon/header.ftl">
+    <!-- banner end -->
+    <!-- main start -->
+	<div id="main" >
+		<div id="main_left" >
+			<div class="zhenduan_title">
+				<div class="abs_title" style="left:75px"><span class="abs_span">专家回答</span><p class="abs_p">PROBLEM&nbsp;&nbsp;CLASSFICACTION</p></div>
+			</div>
+			 <ul class="ques_ul" style="text-align:left;">
+			 <#list pagination.list as ques>
+                 <li  class="ques_item <#if id = ques.id >selected-child</#if>"><a href="fexpertAction!expert.action?id=${ques.id}" title="${ques.title!}">
+                 	<#if ques.title!?length gt 16>
+							${ques.title?substring(0,15)}......
+						<#else>
+							${ques.title!}		
+					</#if>
+                 </a></li>
+             </#list>
+             		<div class="page">
+	                    <form id="queryForm" method="post">
+	                    <@page.page url="fexpertAction!expert.action" name="pagination"></@page.page>
+	                    </form>
+                    </div>
+             </ul>
+             <script type="text/javascript">
+             if("${id}"==0){
+            	 $(".ques_item:first-child").addClass("selected-child");
+             }
+             </script>
+		</div>
+		<div id="main_mid" style="border-left:1px solid #65C4AE;"></div>
+		<div id="main_right">
+			<div class="zhenduan_title" style="">
+				<div class="abs_title"><span class="abs_span">回答详情</span><p class="abs_p">DETAILE&nbsp;&nbsp;OF&nbsp;&nbsp;THE&nbsp;&nbsp;PROBLEM</p></div>
+			</div>
+			
+            <div id="map" style="margin:0 auto;width:750px;height:300px;text-align:center;border:1px solid #ccc;margin-top:20px;"></div>
+            
+			   <div style="width:100%; text-align:center;"><img style="margin:20px auto;" src="${firstQuestion.img!}" /></div>
+			   <div class="row_sty clearfix" style="margin-top:20px;">
+                   <p><span style="font-size:22px;color: rgb(255, 102, 0);">标题：</span></p>
+                   <p style="margin-top:15px;">${firstQuestion.title!}</p>
+               </div>
+                <div class="row_sty clearfix" style="margin-top:20px;">
+                   <p><span style="font-size:22px;color: rgb(255, 102, 0);">地点：</span></p>
+                   <p style="margin-top:15px;">${firstQuestion.location!}</p>    
+               </div>
+               <div class="row_sty clearfix"  style="margin-top:20px;">
+                    <p><span style="font-size:22px;color: rgb(255, 102, 0);">问题：</span></p>
+                    <p style="margin-top:15px;">${firstQuestion.content!}</p>
+               </div>
+               <div class="row_sty clearfix"  style="margin-top:20px;">
+                    <p><span style="font-size:22px;color: rgb(255, 102, 0);">回答：</span></p>
+                    <p style="margin-top:15px;">${firstQuestion.answer!}</p>
+               </div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<script type="text/javascript">
+	var map ;
+	function innit_map(x,y){
+	    map = new AMap.Map('map',{
+	        zoom: 15,
+	        center: [x,y],
+	        animateEnable: false,
+	        zoomEnable: false,
+	        dragEnable: false
+	    }); 
+	}
+	innit_map($("#xPoint").val(),$("#yPoint").val());
+	</script>
+	<!-- main end -->
+	<!-- foot start -->
+	<script type="text/javascript">
+    $("#main_mid").css("height",function(){
+        var _rightHeight= $("#main_right").css("height");
+        return _rightHeight;
+    });
+    </script>
+	 <#include "frontcommon/footer.ftl">
+	<!-- font-end -->
+ </body>
+</html>

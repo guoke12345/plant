@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+    <package name="user" extends="struts-default" namespace="/">
+        <interceptors>
+            <interceptor name="loginInterceptor" class="com.interceptor.LoginInterceptor" />
+            <interceptor-stack name="loginStack">
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+                <interceptor-ref name="loginInterceptor"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <global-results>
+            <result name="main" type="redirect">headimgAction!banner.action</result>
+            <result name="question" type="redirect">questionAction!toList.action</result>
+            <result name="loginDirect" type="redirect">loginAction!login.action</result>
+        </global-results>
+        <action name="loginAction" class="action.LoginAction">
+            <result name="login">/WEB-INF/sys/login.html</result>
+        </action>
+<!--         诊断管理action Diagnosis -->
+		<action name="diagnosisAction" class="action.DiagnosisAction">
+			<result name="list" type="freemarker">/WEB-INF/sys/diagnosis/list.html</result>
+			<result name="edit" type="freemarker">/WEB-INF/sys/diagnosis/edit.html</result>
+			<result name="add" type="freemarker">/WEB-INF/sys/diagnosis/add.html</result>
+			<result name="diseaseList" type="freemarker">/WEB-INF/sys/diagnosis/diseaseList.html</result>
+			<interceptor-ref name="loginStack"></interceptor-ref>
+		</action>
+        <action name="userAction" class="action.UserAction">
+            <result name="list" type="freemarker">/WEB-INF/sys/user/list.html</result>
+            <result name="expert" type="freemarker">/WEB-INF/sys/user/expert.html</result>
+            <result name="add" type="freemarker">/WEB-INF/sys/user/add.html</result>
+            <result name="edit" type="freemarker">/WEB-INF/sys/user/edit.html</result>
+            <result name="toList" type="redirect">userAction!page.action</result>
+             <result name="toExport" type="redirect">userAction!toExpert.action</result>
+            <interceptor-ref name="loginStack"></interceptor-ref>
+        </action>
+        <action name="articleAction" class="action.ArticleAction">
+            <result name="list" type="freemarker">/WEB-INF/sys/article/list.html
+            </result>
+            <result name="add" type="freemarker">/WEB-INF/sys/article/add.html</result>
+            <result name="edit" type="freemarker">/WEB-INF/sys/article/edit.html
+            </result>
+            <result name="toList" type="redirect">articleAction!page.action</result>
+            <interceptor-ref name="loginStack"></interceptor-ref> 
+        </action>
+        <action name="msgAction" class="action.MsgAction">
+            <result name="message" type="freemarker">/WEB-INF/sys/msg/list.html</result>
+            <result name="edit" type="freemarker">/WEB-INF/sys/msg/edit.html</result>
+            <result name="add" type="freemarker">/WEB-INF/sys/msg/add.html</result>
+            <result name="toMessage" type="redirect">msgAction!message.action</result>
+             <interceptor-ref name="loginStack"></interceptor-ref>
+        </action>
+        <action name="pestAction" class="action.PestAction">
+            <result name="list" type="freemarker">/WEB-INF/sys/pest/list.html</result>
+            <result name="add" type="freemarker">/WEB-INF/sys/pest/add.html</result>
+            <result name="edit" type="freemarker">/WEB-INF/sys/pest/edit.html</result>
+            <result name="toList" type="redirect">pestAction!page.action</result>
+            <interceptor-ref name="loginStack"></interceptor-ref>
+        </action>
+        <action name="diseasesAction" class="action.DiseasesAction">
+            <result name="list" type="freemarker">/WEB-INF/sys/diseases/list.html
+            </result>
+            <result name="add" type="freemarker">/WEB-INF/sys/diseases/add.html
+            </result>
+            <result name="edit" type="freemarker">/WEB-INF/sys/diseases/edit.html
+            </result>
+            <result name="toList" type="redirect">diseasesAction!page.action
+            </result>
+            <interceptor-ref name="loginStack"></interceptor-ref> 
+        </action>
+        <action name="headimgAction" class="action.HeadimgAction">
+            <result name="banner" type="freemarker">/WEB-INF/sys/banner/banner.html</result>
+            <result name="toBanner" type="redirect">headimgAction!banner.action</result>
+            <interceptor-ref name="loginStack"></interceptor-ref> 
+        </action>
+        <action name="questionAction" class="action.QuestionAction">
+          <result name="list" type="freemarker">/WEB-INF/sys/question/list.html
+            </result>
+            <result name="add" type="freemarker">/WEB-INF/sys/question/add.html
+            </result>
+            <result name="edit" type="freemarker">/WEB-INF/sys/question/edit.html
+            </result>
+            <result name="toList" type="redirect">questionAction!toList.action
+            </result>
+            <result name="toAdd" type="freemarker">/WEB-INF/sys/question/add.html
+            </result>
+            <interceptor-ref name="loginStack"></interceptor-ref> 
+        </action>
+    </package>
+    <!-- AJAX start -->
+    <package name="jsonstruts2" namespace="/json" extends="json-default">
+        <global-results>
+            <result type="json" name="ajaxSuccess">
+                <param name="ignoreHierarchy">false</param><!-- 这个属性表示是否忽略等级，也就是继承关系,设置为 false 后会将父类和子类的属性一起返回 -->
+                <param name="excludeNullProperties">true</param><!-- 这个属性表示去除空数据 -->
+            </result>
+        </global-results>
+        <action name="loginAction" class="action.LoginAction">
+            <result type="json" name="ajaxSuccess">
+                <param name="ignoreHierarchy">false</param><!-- 这个属性表示是否忽略等级，也就是继承关系,设置为 false 后会将父类和子类的属性一起返回 -->
+                <param name="excludeNullProperties">true</param><!-- 这个属性表示去除空数据 -->
+            </result>
+        </action>
+        <action name="uploadAction" class="action.UploadAction">
+        </action>
+        <action name="headimgAction" class="action.HeadimgAction">
+        </action>
+        <action name="userAction" class="action.UserAction">
+        </action>
+        <action name="questionAction" class="action.QuestionAction">
+        </action>
+    </package>
+    <!-- AJAX end -->
+</struts> 
